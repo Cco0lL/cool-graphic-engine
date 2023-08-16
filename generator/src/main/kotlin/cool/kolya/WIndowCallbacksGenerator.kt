@@ -30,13 +30,13 @@ class WIndowCallbacksGenerator : CodeGenerator() {
         val fields = callbackInfoSet.map {
             FieldSpec.builder(
                     ParameterizedTypeName.get(ClassName.get(Class::class.java), TypeName.get(it.jClass)),
-                    it.name, Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    it.name, Modifier.STATIC, Modifier.FINAL)
                     .initializer("${it.classInfo.simpleName}.class")
                     .build()
         }
 
         val initMethodBuilder = MethodSpec.methodBuilder("initialize")
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addModifiers(Modifier.STATIC)
                 .addParameter(ParameterSpec.builder(
                         ClassName.get("", "WindowCallbackListener"),
                         "callbackListener")
@@ -56,12 +56,11 @@ class WIndowCallbacksGenerator : CodeGenerator() {
         }
 
         val callbackClass = TypeSpec.classBuilder("Callbacks")
-                .addModifiers(Modifier.PUBLIC)
                 .addFields(fields)
                 .addMethod(initMethodBuilder.build())
                 .build()
 
-        writeFile(callbackClass, EngineDirectPath, "$EngineDirectPackage.engine.window.callback")
+        writeFile(callbackClass, EngineDirectPath, "$EngineDirectPackage.engine")
     }
 
 }
