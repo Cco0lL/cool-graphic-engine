@@ -1,16 +1,18 @@
 package cool.kolya;
 
+import cool.kolya.engine.EngineProcessor;
+import cool.kolya.engine.Renderer;
+import cool.kolya.engine.Updater;
 import cool.kolya.engine.event.*;
-import cool.kolya.engine.event.bus.EventBus;
 import cool.kolya.implementation.TestElement;
 import cool.kolya.implementation.TestPlane;
 import cool.kolya.engine.opengl.shader.Shader;
 import cool.kolya.engine.opengl.shader.ShaderProgram;
 import cool.kolya.engine.opengl.uniform.Matrix4fUniform;
 import cool.kolya.engine.opengl.uniform.Vector4fUniform;
-import cool.kolya.engine.scene.Scene;
+import cool.kolya.implementation.scene.Scene;
 import cool.kolya.engine.util.ResourceUtil;
-import org.lwjgl.glfw.GLFW;
+import cool.kolya.implementation.scene.SceneImpl;
 
 public class Main {
 
@@ -35,10 +37,17 @@ public class Main {
         second.getRotation().z(90f);
         plane.getRotation().x(-90);
 
-        Scene scene = Engine.getScene();
+        Scene scene = new SceneImpl();
+        Updater updater = scene::update;
+        Renderer renderer = scene::render;
+
         scene.addElement(plane);
         scene.addElement(first);
         scene.addElement(second);
+
+        EngineProcessor processor = Engine.getProcessor();
+        processor.setUpdater(updater);
+        processor.setRenderer(renderer);
 
         EventBus.getInstance().registerListener(new DebugListener());
         Engine.start();
@@ -61,7 +70,7 @@ public class Main {
             program.createUniform("projectionMatrix", Matrix4fUniform::new);
             program.createUniform("incolor", Vector4fUniform::new);
             program.createUniform("elementMatrix", Matrix4fUniform::new);
-            program.createUniform("cameraMatrix", Matrix4fUniform::new);
+//            program.createUniform("cameraMatrix", Matrix4fUniform::new);
             return program;
         } catch (Exception ex) {
             ex.printStackTrace();

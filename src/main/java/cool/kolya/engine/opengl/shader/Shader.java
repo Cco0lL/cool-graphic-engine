@@ -1,5 +1,6 @@
 package cool.kolya.engine.opengl.shader;
 
+import cool.kolya.Engine;
 import cool.kolya.engine.DestructorProvider;
 import org.lwjgl.opengl.GL33;
 
@@ -28,7 +29,8 @@ public class Shader {
         if (glGetShaderi(id, GL_COMPILE_STATUS) == GL_FALSE) {
             throw new Exception("Error compiling Shader code: " + glGetShaderInfoLog(id, 1024));
         }
-        destructor = DestructorProvider.createDestructor(this, () -> GL33.glDeleteShader(id));
+        destructor = Engine.getProcessor().getDestructorProvider().createDestructor(this,
+                () -> GL33.glDeleteShader(id));
     }
 
     public int getId() {

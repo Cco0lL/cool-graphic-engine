@@ -1,16 +1,17 @@
 package cool.kolya.implementation;
 
 import cool.kolya.Engine;
-import cool.kolya.engine.ProjectionMatrix;
-import cool.kolya.engine.Resolution;
 import cool.kolya.engine.opengl.shader.ShaderProgram;
-import cool.kolya.engine.scene.AbstractElement;
+import cool.kolya.implementation.scene.AbstractElement;
 import org.lwjgl.opengl.GL33;
+
+import java.lang.ref.Cleaner;
 
 public class TestPlane extends AbstractElement {
 
     private final int vaoId;
     private final int vboId;
+    private final Cleaner.Cleanable destructor;
 
     private final float[] vertices = new float[]{
             100f, 100f, -1f,
@@ -33,15 +34,20 @@ public class TestPlane extends AbstractElement {
         GL33.glBindBuffer(GL33.GL_ARRAY_BUFFER, 0);
 
         GL33.glBindVertexArray(0);
+
+        destructor = Engine.getProcessor().getDestructorProvider().createDestructor(this, () -> {
+            GL33.glDeleteBuffers(vboId);
+            GL33.glDeleteVertexArrays(vaoId);
+        });
     }
 
     @Override
     public void render() {
         program.bind();
-        program.getUniform("projectionMatrix").set(ProjectionMatrix.get());
+        program.getUniform("projectionMatrix").set(Engine.getProcessor().getWindow().getProjection().getMatrix());
         program.getUniform("incolor").set(color);
         program.getUniform("elementMatrix").set(elementMatrix);
-        program.getUniform("cameraMatrix").set(Engine.getCamera().getCameraMatrix());
+        //program.getUniform("cameraMatrix").set(Engine.getCamera().getCameraMatrix());
         GL33.glBindVertexArray(vaoId);
         GL33.glEnableVertexAttribArray(0);
         GL33.glDrawArrays(GL33.GL_TRIANGLE_STRIP, 0, 4);
@@ -52,6 +58,6 @@ public class TestPlane extends AbstractElement {
 
     @Override
     public void free() {
-
+        destructor.clean();
     }
 }

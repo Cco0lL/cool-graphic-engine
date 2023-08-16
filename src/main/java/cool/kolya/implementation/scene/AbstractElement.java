@@ -1,4 +1,4 @@
-package cool.kolya.engine.scene;
+package cool.kolya.implementation.scene;
 
 import cool.kolya.engine.opengl.shader.ShaderProgram;
 import org.joml.Matrix4f;

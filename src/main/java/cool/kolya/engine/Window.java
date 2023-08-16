@@ -2,15 +2,9 @@ package cool.kolya.engine;
 
 import com.typesafe.config.Config;
 import cool.kolya.Engine;
-import cool.kolya.engine.config.DefaultConfiguration;
+import cool.kolya.engine.data.*;
 import cool.kolya.engine.event.*;
-import cool.kolya.engine.util.MemUtil;
-import cool.kolya.engine.window.*;
-import cool.kolya.engine.window.callback.Callbacks;
-import cool.kolya.engine.window.callback.WindowCallbackListener;
-import cool.kolya.engine.event.bus.EventBus;
-import cool.kolya.engine.util.IconUtil;
-import cool.kolya.engine.window.callback.WindowCallbackListenerImpl;
+import cool.kolya.engine.util.*;
 import org.apache.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWImage;
@@ -34,6 +28,7 @@ public class Window {
     private final Logger log = Logger.getLogger(Window.class);
     private final long windowPointer;
     private final WindowCallbackListener listener;
+    private final Projection projection;
     private boolean cursorEntered = true;
 
     Window() {
@@ -49,7 +44,8 @@ public class Window {
         applyDefaultConfiguration();
 
         FrameBufferSize frameBufferSize = getFrameBufferSize();
-        ProjectionMatrix.update((float) frameBufferSize.width() / frameBufferSize.height());
+        projection = new Projection();
+        projection.setAspectRatio((float) frameBufferSize.width() / frameBufferSize.height());
 
         //init opengl context
         GLFW.glfwMakeContextCurrent(windowPointer);
@@ -62,19 +58,19 @@ public class Window {
         initCallbackHandlers();
     }
 
-    public void show() {
-        GLFW.glfwShowWindow(windowPointer);
+    public long getWindowPointer() {
+        return windowPointer;
     }
 
-    public void refresh() {
-        GLFW.glfwSwapBuffers(windowPointer);
+    public Projection getProjection() {
+        return projection;
     }
 
     public boolean isShouldBeClose() {
         return GLFW.glfwWindowShouldClose(windowPointer);
     }
 
-    public void markAsShouldBeClose() {
+    public void shouldBeClose() {
         GLFW.glfwSetWindowShouldClose(windowPointer, true);
     }
 
@@ -176,6 +172,14 @@ public class Window {
         }
     }
 
+    void show() {
+        GLFW.glfwShowWindow(windowPointer);
+    }
+
+    void refresh() {
+        GLFW.glfwSwapBuffers(windowPointer);
+    }
+
     private void setupHints() {
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -184,25 +188,30 @@ public class Window {
     }
 
     private void applyDefaultConfiguration() {
-        Config config = DefaultConfiguration.get();
-        if (config.hasPath("width") && config.hasPath("height")) {
-            //TODO width and height validation
-            int defWidth = config.getInt("width");
-            int defHeight = config.getInt("height");
-            setSize(defWidth, defHeight);
-        }
-        if (config.hasPath("xPos") && config.hasPath("yPos")) {
-            //TODO xPos and yPos validation
-            int defPosX = config.getInt("xPos");
-            int defPosY = config.getInt("yPos");
-            setPosition(defPosX, defPosY);
-        }
+        ConfigUtil.readSafe(() -> {
+            Config config = Engine.getConfig();
+            if (config.hasPath("width") && config.hasPath("height")) {
+                //TODO width and height validation
+                int defWidth = config.getInt("width");
+                int defHeight = config.getInt("height");
+                setSize(defWidth, defHeight);
+            }
+            if (config.hasPath("xPos") && config.hasPath("yPos")) {
+                //TODO xPos and yPos validation
+                int defPosX = config.getInt("xPos");
+                int defPosY = config.getInt("yPos");
+                setPosition(defPosX, defPosY);
+            }
+        }, (ex) -> {
+            log.error("An error occurred, setting default window size values", ex);
+            GLFW.glfwMaximizeWindow(windowPointer);
+        });
     }
 
     private void initCallbackHandlers() {
         EventBus bus = EventBus.getInstance();
         listener.setCallbackHandler(Callbacks.MouseButton, (window, button, action, mods) -> {
-            Engine.getMouseState().changeState(button, action);
+            Engine.getProcessor().getMouseState().changeState(button, action);
             bus.dispatch(new ClickEvent(button, action, mods));
         }).setCallbackHandler(Callbacks.CursorEnter, (window, entered) -> {
             cursorEntered = entered;
@@ -210,13 +219,15 @@ public class Window {
         }).setCallbackHandler(Callbacks.Key, (window, key, scancode, action, mods) -> {
             bus.dispatch(new KeyTypeEvent(key, action, mods));
         }).setCallbackHandler(Callbacks.FramebufferSize, ((window, width, height) -> {
-            ProjectionMatrix.update((float) width / height);
+            projection.setAspectRatio((float) width / height);
             GL11.glViewport(0, 0, width, height);
             bus.dispatch(new FrameBufferResizeEvent(width, height));
         })).setCallbackHandler(Callbacks.WindowSize, ((window, width, height) -> {
             bus.dispatch(new WindowResizeEvent(width, height));
         })).setCallbackHandler(Callbacks.CursorPos, ((window, xpos, ypos) -> {
-            new CursorMoveEvent(xpos, ypos);
+            bus.dispatch(new CursorMoveEvent(xpos, ypos));
+        })).setCallbackHandler(Callbacks.Scroll,((window, xoffset, yoffset) -> {
+            bus.dispatch(new ScrollEvent(xoffset, yoffset));
         }));
     }
 }

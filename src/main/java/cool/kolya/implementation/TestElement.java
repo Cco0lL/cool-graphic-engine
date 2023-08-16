@@ -1,11 +1,8 @@
 package cool.kolya.implementation;
 
 import cool.kolya.Engine;
-import cool.kolya.engine.DestructorProvider;
-import cool.kolya.engine.ProjectionMatrix;
-import cool.kolya.engine.Resolution;
 import cool.kolya.engine.opengl.shader.ShaderProgram;
-import cool.kolya.engine.scene.AbstractElement;
+import cool.kolya.implementation.scene.AbstractElement;
 import org.lwjgl.opengl.GL33;
 
 import java.lang.ref.Cleaner;
@@ -39,7 +36,7 @@ public class TestElement extends AbstractElement {
 
         GL33.glBindVertexArray(0);
 
-        destructor = DestructorProvider.createDestructor(this, () -> {
+        destructor = Engine.getProcessor().getDestructorProvider().createDestructor(this, () -> {
             GL33.glDeleteBuffers(vboId);
             GL33.glDeleteVertexArrays(vaoId);
         });
@@ -48,10 +45,10 @@ public class TestElement extends AbstractElement {
     @Override
     public void render() {
         program.bind();
-        program.getUniform("projectionMatrix").set(ProjectionMatrix.get());
+        program.getUniform("projectionMatrix").set(Engine.getProcessor().getWindow().getProjection().getMatrix());
         program.getUniform("incolor").set(color);
         program.getUniform("elementMatrix").set(elementMatrix);
-        program.getUniform("cameraMatrix").set(Engine.getCamera().getCameraMatrix());
+        //program.getUniform("cameraMatrix").set(Engine.getCamera().getCameraMatrix());
 
         GL33.glBindVertexArray(vaoId);
         GL33.glEnableVertexAttribArray(0);

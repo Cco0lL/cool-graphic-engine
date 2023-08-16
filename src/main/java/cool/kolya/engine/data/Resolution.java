@@ -1,4 +1,4 @@
-package cool.kolya.engine;
+package cool.kolya.engine.data;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;

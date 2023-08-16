@@ -1,6 +1,5 @@
-package cool.kolya.engine.scene;
+package cool.kolya.implementation.scene;
 
-import cool.kolya.Engine;
 import org.lwjgl.opengl.GL33;
 
 import java.util.ArrayList;
@@ -35,10 +34,8 @@ public class SceneImpl implements Scene {
 
     @Override
     public void render() {
-        GL33.glClear(GL33.GL_COLOR_BUFFER_BIT | GL33.GL_DEPTH_BUFFER_BIT);
         for (AbstractElement element : elements) {
             element.render();
         }
-        Engine.getWindow().refresh();
     }
 }

@@ -1,8 +1,4 @@
-package cool.kolya.engine.event.bus;
-
-import cool.kolya.engine.event.Event;
-import cool.kolya.engine.event.EventHandler;
-import cool.kolya.engine.event.EventListener;
+package cool.kolya.engine.event;
 
 /**
  * Dispatches events to registered handlers. Each type of event has a priority queue of handlers. Handlers

@@ -1,5 +1,6 @@
 package cool.kolya.engine.opengl.shader;
 
+import cool.kolya.Engine;
 import cool.kolya.engine.DestructorProvider;
 import cool.kolya.engine.opengl.uniform.Uniform;
 import org.lwjgl.opengl.GL33;
@@ -29,7 +30,8 @@ public class ShaderProgram {
         if (programId == 0) {
             throw new Exception("Could not create Shader");
         }
-        this.destructor = DestructorProvider.createDestructor(this, () -> glDeleteProgram(programId));
+        this.destructor = Engine.getProcessor().getDestructorProvider().createDestructor(this,
+                () -> glDeleteProgram(programId));
     }
 
     public int getProgramId() {

@@ -1,4 +1,4 @@
-package cool.kolya.engine.scene;
+package cool.kolya.implementation.scene;
 
 import org.joml.Vector3f;
 

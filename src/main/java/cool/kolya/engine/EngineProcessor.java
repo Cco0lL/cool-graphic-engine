@@ -1,11 +1,12 @@
 package cool.kolya.engine;
 
+import com.typesafe.config.Config;
+import cool.kolya.Engine;
 import cool.kolya.engine.event.RenderEvent;
 import cool.kolya.engine.event.UpdateEvent;
-import cool.kolya.engine.event.bus.EventBus;
+import cool.kolya.engine.event.EventBus;
+import cool.kolya.engine.util.ConfigUtil;
 import cool.kolya.implementation.Camera;
-import cool.kolya.engine.scene.Scene;
-import cool.kolya.engine.scene.SceneImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,20 +15,34 @@ import static org.lwjgl.glfw.GLFW.*;
 public class EngineProcessor {
 
     protected static final Logger log = LoggerFactory.getLogger(EngineProcessor.class);
-    private final UPSProvider upsProvider = new UPSProvider();
-    private final FPSProvider fpsProvider = new FPSProvider();
-
     private final Mouse mouse;
     private final Window window;
     private final Camera camera;
-    private final Scene scene;
+    private final DestructorProvider destructorProvider;
+
+    private int fps, ups;
+
+    private Updater updater;
+    private Renderer renderer;
 
     public EngineProcessor() {
         mouse = new Mouse();
         window = new Window();
         camera = new Camera();
-        scene = new SceneImpl();
-        Runtime.getRuntime().addShutdownHook(new Thread(this::freeAndTerminate));
+        destructorProvider = new DestructorProvider();
+
+        ConfigUtil.readSafe(() -> {
+            Config config = Engine.getConfig();
+            fps = config.hasPath("fps") ? config.getInt("fps") : 60;
+            ups = config.hasPath("ups") ? config.getInt("ups") : 50;
+        }, (ex) -> {
+            log.error("An error occurred, setting default fps/ups values", ex);
+            fps = 60;
+            ups = 50;
+        });
+
+        int swapInterval = fps > 0 ? 0 : 1;
+        glfwSwapInterval(swapInterval);
     }
 
     public Mouse getMouseState() {
@@ -42,8 +57,24 @@ public class EngineProcessor {
         return camera;
     }
 
-    public Scene getScene() {
-        return scene;
+    public Updater getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(Updater updater) {
+        this.updater = updater;
+    }
+
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
+    }
+
+    public DestructorProvider getDestructorProvider() {
+        return destructorProvider;
     }
 
     public void process() {
@@ -53,7 +84,7 @@ public class EngineProcessor {
         } catch (Exception ex) {
             log.error("error: ", ex);
         } finally {
-            freeAndTerminate();
+            terminate();
         }
     }
 
@@ -70,16 +101,16 @@ public class EngineProcessor {
             lastFrameElapsedTime = startFrameTime;
             steps += elapsed;
 
-            final long timeU = 1000 / upsProvider.ups;
+            final long timeU = 1000 / ups;
             bus.dispatch(new UpdateEvent());
             for (; steps >= timeU; steps -= timeU) {
-                scene.update();
+                updater.update();
             }
 
-            scene.render();
+            renderer.clearAndRender();
             bus.dispatch(new RenderEvent());
 
-            final long frameTime = fpsProvider.fps > 0 ? 1000 / fpsProvider.fps : 0;
+            final long frameTime = fps > 0 ? 1000 / fps : 0;
             final long endFrameTime = startFrameTime + frameTime;
 
             //noinspection StatementWithEmptyBody
@@ -87,52 +118,7 @@ public class EngineProcessor {
         }
     }
 
-    private void freeAndTerminate() {
+    private void terminate() {
         glfwTerminate();
-    }
-
-    static class UPSProvider {
-
-        private int ups = 60;
-
-        public void setUps(int ups) {
-            if (ups <= 0) {
-                //log.error("ups can't be less or equal than zero value, value: {}", ups);
-                return;
-            }
-            this.ups = ups;
-        }
-
-        public float getUps() {
-            return ups;
-        }
-    }
-
-    static class FPSProvider {
-
-        private int fps;
-
-        public FPSProvider(int fps) {
-            this.fps = fps;
-            glfwSwapInterval(fps);
-        }
-
-        public FPSProvider() {
-            this(0);
-        }
-
-        public void setFps(int fps) {
-            int swapInterval = fps > 0 ? 0 : 1;
-            glfwSwapInterval(swapInterval);
-            this.fps = fps;
-        }
-
-        public int getFps() {
-            return fps;
-        }
-
-        public boolean isVsync() {
-            return fps == 1;
-        }
     }
 }

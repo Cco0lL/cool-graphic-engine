@@ -4,8 +4,11 @@ import java.lang.ref.Cleaner;
 
 public class DestructorProvider {
 
-    private static final Cleaner CLEANER = Cleaner.create();
-    public static Cleaner.Cleanable createDestructor(Object object, Runnable destructRunnable) {
-        return CLEANER.register(object, destructRunnable);
+    private final Cleaner cleaner = Cleaner.create();
+
+    DestructorProvider() {}
+
+    public Cleaner.Cleanable createDestructor(Object object, Runnable destructRunnable) {
+        return cleaner.register(object, destructRunnable);
     }
 }

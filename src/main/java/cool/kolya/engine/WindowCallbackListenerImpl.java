@@ -1,4 +1,4 @@
-package cool.kolya.engine.window.callback;
+package cool.kolya.engine;
 
 import org.lwjgl.system.CallbackI;
 
@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class WindowCallbackListenerImpl implements WindowCallbackListener {
+class WindowCallbackListenerImpl implements WindowCallbackListener {
+
+    WindowCallbackListenerImpl() {}
 
     private final Map<Class<? extends CallbackI>, CallbackI> callbackHandlersMap = new HashMap<>();
 
