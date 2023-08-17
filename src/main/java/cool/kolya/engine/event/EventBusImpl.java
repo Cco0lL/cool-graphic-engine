@@ -31,7 +31,6 @@ public class EventBusImpl implements EventBus {
     @Override
     @SuppressWarnings("unchecked")
     public void registerListener(EventListener listener) {
-        synchronized (eventHandlerMap) {
             Class<?> lClass = listener.getClass();
             Method[] methods = lClass.getDeclaredMethods();
             for (Method method : methods) {
@@ -52,15 +51,12 @@ public class EventBusImpl implements EventBus {
 
                 eventHandlerMap.computeIfAbsent(eClass, (k) -> new PriorityQueue<>()).offer(handle);
             }
-        }
     }
 
     @Override
     public void unregisterListener(Class<? extends EventListener> listenerClass) {
-        synchronized (eventHandlerMap) {
             for (Queue<Handle<? extends Event>> handlerQueue : eventHandlerMap.values())
                 handlerQueue.removeIf(eventHandler -> eventHandler.listenerClass().equals(listenerClass));
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -82,7 +78,6 @@ public class EventBusImpl implements EventBus {
             return new Handle<>(lClass, priority, consumer);
         } catch (Throwable e) {
             //TODO log
-            e.printStackTrace();
             log.error("an error occurred on event handle creation", e);
         }
         return null;
@@ -95,10 +90,6 @@ public class EventBusImpl implements EventBus {
         @Override
         public int compareTo(Handle<T> o) {
             return Integer.compare(priority, o.priority);
-        }
-
-        public void handle(T event) {
-            consumer.accept(event);
         }
     }
 }

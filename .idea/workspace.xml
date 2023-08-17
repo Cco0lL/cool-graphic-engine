@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="some changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Listener.java" afterDir="false" />
+    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="removed useless stack trace print">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Projection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Projection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestPlane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/cool/kolya/vertex_shader.vs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/vertex_shader.vs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBusImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +189,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692182824993</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="camera implementation (without rotation) some code implementation, movement on W S A D keys">
+      <created>1692257471602</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692257471602</updated>
+    </task>
+    <task id="LOCAL-00005" summary="some changes">
+      <created>1692262293046</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1692262293046</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,8 +220,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <MESSAGE value="removed public access from Callbacks.java, this is internal class" />
+    <MESSAGE value="camera implementation (without rotation) some code implementation, movement on W S A D keys" />
     <MESSAGE value="some changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
+    <MESSAGE value="removed useless stack trace print" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed useless stack trace print" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
