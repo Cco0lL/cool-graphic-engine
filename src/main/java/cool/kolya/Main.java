@@ -3,6 +3,7 @@ package cool.kolya;
 import cool.kolya.engine.EngineProcessor;
 import cool.kolya.engine.Renderer;
 import cool.kolya.engine.Updater;
+import cool.kolya.engine.Window;
 import cool.kolya.engine.event.*;
 import cool.kolya.implementation.Camera;
 import cool.kolya.implementation.Listener;
@@ -57,10 +58,9 @@ public class Main {
 
         Listener listener = new Listener(camera);
         EventBus.getInstance().registerListener(listener);
-       // EventBus.getInstance().registerListener(new DebugListener());
+      //  EventBus.getInstance().registerListener(new DebugListener());
 
-        GLFW.glfwSetInputMode(processor.getWindow().getWindowPointer(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_HIDDEN);
-
+        GLFW.glfwSetInputMode(processor.getWindow().getWindowPointer(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
         Engine.start();
     }
 
@@ -104,6 +104,11 @@ public class Main {
         @EventHandler
         void handle(CursorEnterEvent event) {
             System.out.println("cursor entered");
+        }
+
+        @EventHandler
+        void handle(CursorMoveEvent event) {
+            System.out.println("moved: " + event.xPos() + ", " + event.yPos());
         }
     }
 }

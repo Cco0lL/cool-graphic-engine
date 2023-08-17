@@ -54,14 +54,14 @@ public class Camera {
             position.z += Math.cos(rotYMinusNineteenRads) * moveVec.x;
         }
         if (moveVec.y != 0) {
-            position.y += Math.sin(rotYRads) * moveVec.y;
+            position.y += moveVec.y;
         }
         updatePositionMatrix();
         updateCameraMatrix();
     }
 
     public void moveRotation(float pitch, float yaw) {
-        rotation.x += yaw;
+        rotation.x = Math.min(Math.max(-90f, rotation.x + yaw), 90f);
         rotation.y += pitch;
 
         //dir vec
@@ -82,7 +82,9 @@ public class Camera {
     }
 
     private void updateRotationMatrix() {
-        rotationMatrix.identity().rotateAffineXYZ(rotation.x, rotation.y, 0f);
+        rotationMatrix.identity()
+                .rotate((float) Math.toRadians(rotation.x), 1f, 0f, 0f)
+                .rotate((float) Math.toRadians(rotation.y), 0f, 1f, 0f);
     }
 
     private void updatePositionMatrix() {
@@ -91,7 +93,7 @@ public class Camera {
 
     public void updateCameraMatrix() {
         cameraMatrix.identity()
-                .mul(positionMatrix)
-                .mul(rotationMatrix);
+                .mul(rotationMatrix)
+                .mul(positionMatrix);
     }
 }
