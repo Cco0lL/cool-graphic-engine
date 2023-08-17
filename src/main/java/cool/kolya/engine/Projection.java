@@ -41,8 +41,6 @@ public class Projection {
         });
 
         updateProjectionMatrix();
-
-        System.out.println(zFar + " " + zNear + " " + fov);
     }
 
     public float getAspectRatio() {

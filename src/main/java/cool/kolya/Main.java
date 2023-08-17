@@ -4,6 +4,8 @@ import cool.kolya.engine.EngineProcessor;
 import cool.kolya.engine.Renderer;
 import cool.kolya.engine.Updater;
 import cool.kolya.engine.event.*;
+import cool.kolya.implementation.Camera;
+import cool.kolya.implementation.Listener;
 import cool.kolya.implementation.TestElement;
 import cool.kolya.implementation.TestPlane;
 import cool.kolya.engine.opengl.shader.Shader;
@@ -13,33 +15,37 @@ import cool.kolya.engine.opengl.uniform.Vector4fUniform;
 import cool.kolya.implementation.scene.Scene;
 import cool.kolya.engine.util.ResourceUtil;
 import cool.kolya.implementation.scene.SceneImpl;
+import org.lwjgl.glfw.GLFW;
 
 public class Main {
 
     public static void main(String[] args) {
         Engine.initialize();
 
+        Scene scene = new SceneImpl();
+
+        Updater updater = scene::update;
+        Renderer renderer = scene::render;
+
+        Camera camera = new Camera();
+        camera.updateCameraMatrix();
         ShaderProgram testProgram = testShaderProgram();
 
-        TestPlane plane = new TestPlane(testProgram);
+        TestPlane plane = new TestPlane(testProgram, camera);
         plane.getColor().set(1f);
 
-        TestElement first = new TestElement(testProgram);
-        TestElement second = new TestElement(testProgram);
+        TestElement first = new TestElement(testProgram, camera);
+        TestElement second = new TestElement(testProgram, camera);
 
         first.getOffset().set(-1.0f, 0.0f, 0.0f);
         second.getOffset().set(1.0f, 0.0f, 0.0f);
 
         first.getColor().set(1f, (float) 215 / 255, 0f, 1.0f);
-        second.getColor().set(0.5f,  0.5f, 0.5f, 1.0f);
+        second.getColor().set(0.5f, 0.5f, 0.5f, 1.0f);
 
         first.getRotation().z(-90f);
         second.getRotation().z(90f);
         plane.getRotation().x(-90);
-
-        Scene scene = new SceneImpl();
-        Updater updater = scene::update;
-        Renderer renderer = scene::render;
 
         scene.addElement(plane);
         scene.addElement(first);
@@ -49,7 +55,12 @@ public class Main {
         processor.setUpdater(updater);
         processor.setRenderer(renderer);
 
-        EventBus.getInstance().registerListener(new DebugListener());
+        Listener listener = new Listener(camera);
+        EventBus.getInstance().registerListener(listener);
+       // EventBus.getInstance().registerListener(new DebugListener());
+
+        GLFW.glfwSetInputMode(processor.getWindow().getWindowPointer(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_HIDDEN);
+
         Engine.start();
     }
 
@@ -70,7 +81,7 @@ public class Main {
             program.createUniform("projectionMatrix", Matrix4fUniform::new);
             program.createUniform("incolor", Vector4fUniform::new);
             program.createUniform("elementMatrix", Matrix4fUniform::new);
-//            program.createUniform("cameraMatrix", Matrix4fUniform::new);
+            program.createUniform("cameraMatrix", Matrix4fUniform::new);
             return program;
         } catch (Exception ex) {
             ex.printStackTrace();

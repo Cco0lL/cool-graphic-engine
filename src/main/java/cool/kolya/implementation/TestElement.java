@@ -9,10 +9,9 @@ import java.lang.ref.Cleaner;
 
 public class TestElement extends AbstractElement {
 
-    //private ShaderProgram program;
     private final int vaoId;
     private final int vboId;
-
+    private final Camera camera;
     private final Cleaner.Cleanable destructor;
 
     private final float[] vertices = new float[]{
@@ -21,8 +20,9 @@ public class TestElement extends AbstractElement {
             0.5f, -0.5f, -10.0f
     };
 
-    public TestElement(ShaderProgram program) {
+    public TestElement(ShaderProgram program, Camera camera) {
         super(program);
+        this.camera = camera;
 
         vaoId = GL33.glGenVertexArrays();
         GL33.glBindVertexArray(vaoId);
@@ -48,7 +48,7 @@ public class TestElement extends AbstractElement {
         program.getUniform("projectionMatrix").set(Engine.getProcessor().getWindow().getProjection().getMatrix());
         program.getUniform("incolor").set(color);
         program.getUniform("elementMatrix").set(elementMatrix);
-        //program.getUniform("cameraMatrix").set(Engine.getCamera().getCameraMatrix());
+        program.getUniform("cameraMatrix").set(camera.getCameraMatrix());
 
         GL33.glBindVertexArray(vaoId);
         GL33.glEnableVertexAttribArray(0);

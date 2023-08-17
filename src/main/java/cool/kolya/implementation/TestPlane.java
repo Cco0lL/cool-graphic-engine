@@ -11,6 +11,7 @@ public class TestPlane extends AbstractElement {
 
     private final int vaoId;
     private final int vboId;
+    private final Camera camera;
     private final Cleaner.Cleanable destructor;
 
     private final float[] vertices = new float[]{
@@ -20,8 +21,9 @@ public class TestPlane extends AbstractElement {
             -100f,-100f, -1f
     };
 
-    public TestPlane(ShaderProgram program) {
+    public TestPlane(ShaderProgram program, Camera camera) {
         super(program);
+        this.camera = camera;
 
         vaoId = GL33.glGenVertexArrays();
         GL33.glBindVertexArray(vaoId);
@@ -47,7 +49,7 @@ public class TestPlane extends AbstractElement {
         program.getUniform("projectionMatrix").set(Engine.getProcessor().getWindow().getProjection().getMatrix());
         program.getUniform("incolor").set(color);
         program.getUniform("elementMatrix").set(elementMatrix);
-        //program.getUniform("cameraMatrix").set(Engine.getCamera().getCameraMatrix());
+        program.getUniform("cameraMatrix").set(camera.getCameraMatrix());
         GL33.glBindVertexArray(vaoId);
         GL33.glEnableVertexAttribArray(0);
         GL33.glDrawArrays(GL33.GL_TRIANGLE_STRIP, 0, 4);

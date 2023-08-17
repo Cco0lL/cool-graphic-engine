@@ -4,41 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="removed public access from Callbacks.java, this is internal class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Renderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Updater.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/data/WindowPosition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/util/ConfigUtil.java" afterDir="false" />
+    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="some changes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Listener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/DestructorProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/DestructorProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/EngineProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/EngineProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/ProjectionMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Projection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Properties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Resolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/data/Resolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/config/DefaultConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/ScrollEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/ScrollEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/bus/EventBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/bus/EventBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBusImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/Shader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/Shader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/ShaderProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/ShaderProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/scene/AbstractElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/AbstractElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/scene/Matrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/Matrices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/scene/ProxiedVector3f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/ProxiedVector3f.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/scene/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/Scene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/scene/SceneImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/SceneImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/window/CursorPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/data/CursorPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/window/FrameBufferSize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/data/FrameBufferSize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/window/WindowPosition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/window/WindowSize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/data/WindowSize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/window/callback/WindowCallbackListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/WindowCallbackListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/window/callback/WindowCallbackListenerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/WindowCallbackListenerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Projection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Projection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestElement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestPlane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/cool/kolya/vertex_shader.vs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/vertex_shader.vs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,8 +54,8 @@
         <option value="Kotlin Object" />
         <option value="Record" />
         <option value="Kotlin Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -93,20 +68,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ToolWindowRun.ShowToolbar&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-20&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "openjdk-20",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Николай\IdeaProjects\cool-graphic-engine\src\main\resources" />
@@ -214,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692168461400</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="some changes">
+      <created>1692182824993</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1692182824993</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -231,7 +212,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <MESSAGE value="removed public access from Callbacks.java, this is internal class" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed public access from Callbacks.java, this is internal class" />
+    <MESSAGE value="some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

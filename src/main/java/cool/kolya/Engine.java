@@ -32,7 +32,6 @@ public class Engine {
         }));
         /* TODO if config path is valid but there isn't a file, then copies default config from resources to given path*/
         String path = System.getProperty("engine.config-path");
-        System.out.println(path);
         ConfigParseOptions READ_OPTS = ConfigParseOptions.defaults().setSyntax(ConfigSyntax.CONF);
         CONFIG = path == null ? ConfigFactory.parseResources("config.conf", READ_OPTS)
                 : ConfigFactory.parseFile(new File(path), READ_OPTS);
