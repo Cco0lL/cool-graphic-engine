@@ -1,14 +1,11 @@
 package cool.kolya.implementation;
 
-import cool.kolya.engine.Updater;
 import cool.kolya.engine.event.EventHandler;
 import cool.kolya.engine.event.EventListener;
 import cool.kolya.engine.event.KeyTypeEvent;
 import cool.kolya.engine.event.UpdateEvent;
-import it.unimi.dsi.fastutil.ints.Int2BooleanArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2BooleanMap;
 import it.unimi.dsi.fastutil.ints.Int2BooleanOpenHashMap;
-import it.unimi.dsi.fastutil.ints.Int2DoubleMap;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
@@ -21,7 +18,7 @@ public class Listener implements EventListener {
 
     }
 
-    private Int2BooleanMap stateMap = new Int2BooleanOpenHashMap(5, 0.9999f) {
+    private final Int2BooleanMap stateMap = new Int2BooleanOpenHashMap() {
         {
             put(GLFW.GLFW_KEY_W, false);
             put(GLFW.GLFW_KEY_S, false);

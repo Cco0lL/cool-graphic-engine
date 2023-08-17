@@ -30,7 +30,7 @@ public class EventBusImpl implements EventBus {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void registerListener(cool.kolya.engine.event.EventListener listener) {
+    public void registerListener(EventListener listener) {
         synchronized (eventHandlerMap) {
             Class<?> lClass = listener.getClass();
             Method[] methods = lClass.getDeclaredMethods();
@@ -56,7 +56,7 @@ public class EventBusImpl implements EventBus {
     }
 
     @Override
-    public void unregisterListener(Class<? extends cool.kolya.engine.event.EventListener> listenerClass) {
+    public void unregisterListener(Class<? extends EventListener> listenerClass) {
         synchronized (eventHandlerMap) {
             for (Queue<Handle<? extends Event>> handlerQueue : eventHandlerMap.values())
                 handlerQueue.removeIf(eventHandler -> eventHandler.listenerClass().equals(listenerClass));
@@ -64,9 +64,9 @@ public class EventBusImpl implements EventBus {
     }
 
     @SuppressWarnings("unchecked")
-    private <E extends Event> Handle<E> createHandle(Class<E> eClass, cool.kolya.engine.event.EventListener listener,
+    private <E extends Event> Handle<E> createHandle(Class<E> eClass, EventListener listener,
                                                     int priority, Method method) {
-        Class<? extends cool.kolya.engine.event.EventListener> lClass = listener.getClass();
+        Class<? extends EventListener> lClass = listener.getClass();
         try {
             MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(lClass, MethodHandles.lookup());
             MethodHandle handle = lookup.unreflect(method);
