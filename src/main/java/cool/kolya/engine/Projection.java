@@ -13,33 +13,13 @@ public class Projection {
     private static final Logger log = LoggerFactory.getLogger(Projection.class);
     private final Matrix4f projectionMatrix = new Matrix4f();
     private float aspectRatio;
-    private float fov;
-    private float zFar;
-    private float zNear;
+    private float fov = (float) Math.toRadians(60d);
+    private float zFar = 1000f;
+    private float zNear = 0.01f;
 
     Projection() {
         Resolution resolution = Engine.getPrimaryMonitorResolution();
         aspectRatio = (float) resolution.width() / resolution.height();
-
-        Config config = Engine.getConfig();
-
-        ConfigUtil.readSafe(() -> {
-            if (config.hasPath("fov")) {
-                fov = (float) Math.toRadians(config.getInt("fov"));
-            }
-            if (config.hasPath("zFar")) {
-                zFar = (float) config.getDouble("zFar");
-            }
-            if (config.hasPath("zNear")) {
-                zNear = (float) config.getDouble("zNear");
-            }
-        }, (ex) -> {
-            log.error("An error occurred, setting default fov, zNear, zFar values", ex);
-            fov = (float) Math.toRadians(60.00);
-            zFar = 1000.0f;
-            zNear = 0.01f;
-        });
-
         updateProjectionMatrix();
     }
 

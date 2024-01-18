@@ -41,8 +41,6 @@ public class Window {
         //there's an issue with window position on full screen, resize through maximize
         GLFW.glfwMaximizeWindow(windowPointer);
 
-        applyDefaultConfiguration();
-
         FrameBufferSize frameBufferSize = getFrameBufferSize();
         projection = new Projection();
         projection.setAspectRatio((float) frameBufferSize.width() / frameBufferSize.height());
@@ -185,27 +183,6 @@ public class Window {
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
-    }
-
-    private void applyDefaultConfiguration() {
-        ConfigUtil.readSafe(() -> {
-            Config config = Engine.getConfig();
-            if (config.hasPath("width") && config.hasPath("height")) {
-                //TODO width and height validation
-                int defWidth = config.getInt("width");
-                int defHeight = config.getInt("height");
-                setSize(defWidth, defHeight);
-            }
-            if (config.hasPath("xPos") && config.hasPath("yPos")) {
-                //TODO xPos and yPos validation
-                int defPosX = config.getInt("xPos");
-                int defPosY = config.getInt("yPos");
-                setPosition(defPosX, defPosY);
-            }
-        }, (ex) -> {
-            log.error("An error occurred, setting default window size values", ex);
-            GLFW.glfwMaximizeWindow(windowPointer);
-        });
     }
 
     private void initCallbackHandlers() {

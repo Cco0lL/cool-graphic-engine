@@ -20,7 +20,8 @@ public class EngineProcessor {
     private final Camera camera;
     private final DestructorProvider destructorProvider;
 
-    private int fps, ups;
+    private int fps = 60,
+            ups = 60;
 
     private Updater updater;
     private Renderer renderer;
@@ -30,16 +31,6 @@ public class EngineProcessor {
         window = new Window();
         camera = new Camera();
         destructorProvider = new DestructorProvider();
-
-        ConfigUtil.readSafe(() -> {
-            Config config = Engine.getConfig();
-            fps = config.hasPath("fps") ? config.getInt("fps") : 60;
-            ups = config.hasPath("ups") ? config.getInt("ups") : 50;
-        }, (ex) -> {
-            log.error("An error occurred, setting default fps/ups values", ex);
-            fps = 60;
-            ups = 50;
-        });
 
         int swapInterval = fps > 0 ? 0 : 1;
         glfwSwapInterval(swapInterval);
