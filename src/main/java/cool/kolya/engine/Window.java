@@ -1,10 +1,10 @@
 package cool.kolya.engine;
 
-import com.typesafe.config.Config;
 import cool.kolya.Engine;
 import cool.kolya.engine.data.*;
 import cool.kolya.engine.event.*;
-import cool.kolya.engine.util.*;
+import cool.kolya.engine.util.IconUtil;
+import cool.kolya.engine.util.MemUtil;
 import org.apache.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWImage;

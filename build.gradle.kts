@@ -41,8 +41,6 @@ allprojects {
 
         // https://mvnrepository.com/artifact/it.unimi.dsi/fastutil
         implementation("it.unimi.dsi:fastutil:8.5.12")
-        // https://mvnrepository.com/artifact/com.typesafe/config
-        implementation("com.typesafe:config:1.4.2")
 
         testImplementation(platform("org.junit:junit-bom:5.9.1"))
         testImplementation("org.junit.jupiter:junit-jupiter")

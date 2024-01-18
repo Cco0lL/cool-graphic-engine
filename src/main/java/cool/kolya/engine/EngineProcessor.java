@@ -1,11 +1,8 @@
 package cool.kolya.engine;
 
-import com.typesafe.config.Config;
-import cool.kolya.Engine;
+import cool.kolya.engine.event.EventBus;
 import cool.kolya.engine.event.RenderEvent;
 import cool.kolya.engine.event.UpdateEvent;
-import cool.kolya.engine.event.EventBus;
-import cool.kolya.engine.util.ConfigUtil;
 import cool.kolya.implementation.Camera;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,7 @@
 package cool.kolya.engine;
 
-import com.typesafe.config.Config;
 import cool.kolya.Engine;
 import cool.kolya.engine.data.Resolution;
-import cool.kolya.engine.util.ConfigUtil;
 import org.joml.Matrix4f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
