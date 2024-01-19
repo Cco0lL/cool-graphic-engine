@@ -10,7 +10,7 @@ abstract class CodeGenerator {
 
     companion object {
         const val EngineDirectPath = "src/main/java"
-        const val EngineDirectPackage = "cool.kolya"
+        const val EngineDirectPackage = "cool.kolya.engine.window.callback"
     }
 
     private val Logger = LoggerFactory.getLogger(this::class.java)
