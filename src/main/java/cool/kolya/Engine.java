@@ -1,9 +1,7 @@
 package cool.kolya;
 
 import cool.kolya.engine.EngineProcessor;
-import cool.kolya.engine.data.Resolution;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +29,6 @@ public class Engine {
         return PROCESSOR;
     }
 
-    public static Resolution getPrimaryMonitorResolution() {
-        GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-        return new Resolution(vidMode.width(), vidMode.height());
-    }
 
     public static void start() {
         PROCESSOR.process();

@@ -1,6 +1,5 @@
 package cool.kolya.engine;
 
-import cool.kolya.Engine;
 import cool.kolya.engine.data.Resolution;
 import org.joml.Matrix4f;
 import org.slf4j.Logger;
@@ -16,7 +15,9 @@ public class Projection {
     private float zNear = 0.01f;
 
     Projection() {
-        Resolution resolution = Engine.getPrimaryMonitorResolution();
+        //FIXME resolution for projection
+        Resolution resolution = new Resolution(0, 0);
+        //Resolution resolution = Engine.getPrimaryMonitorResolution();
         aspectRatio = (float) resolution.width() / resolution.height();
         updateProjectionMatrix();
     }
