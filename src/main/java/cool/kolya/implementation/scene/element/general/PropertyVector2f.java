@@ -8,19 +8,21 @@ public class PropertyVector2f implements IPropertyVector2f {
 
     protected float x, y;
     protected final DrawableProperties properties;
+    protected final int propertyOrdinal;
 
-    public PropertyVector2f(PropertyVector2f other) {
-        this(other.x(), other.y(), other.properties);
+    public PropertyVector2f(PropertyVector2f other, int propertyOrdinal) {
+        this(other.x(), other.y(), other.properties, propertyOrdinal);
     }
 
-    public PropertyVector2f(float d, DrawableProperties properties) {
-        this(d, d, properties);
+    public PropertyVector2f(float d, DrawableProperties properties, int propertyOrdinal) {
+        this(d, d, properties, propertyOrdinal);
     }
 
-    public PropertyVector2f(float x, float y, DrawableProperties properties) {
+    public PropertyVector2f(float x, float y, DrawableProperties properties, int propertyOrdinal) {
         this.x = x;
         this.y = y;
         this.properties = properties;
+        this.propertyOrdinal = propertyOrdinal;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class PropertyVector2f implements IPropertyVector2f {
     @Override
     public void x(float x) {
         this.x = x;
+        markDirty();
     }
 
     @Override
@@ -41,12 +44,14 @@ public class PropertyVector2f implements IPropertyVector2f {
     @Override
     public void y(float y) {
         this.y = y;
+        markDirty();
     }
 
     @Override
     public void set(float x, float y) {
-        x(x);
-        y(y);
+        this.x = x;
+        this.y = y;
+        markDirty();
     }
 
     @Override
@@ -72,5 +77,9 @@ public class PropertyVector2f implements IPropertyVector2f {
     @Override
     public Vector2f toVector2f() {
         return new Vector2f(x(), y());
+    }
+
+    public void markDirty() {
+        properties.setPropertyDirty(propertyOrdinal, true);
     }
 }

@@ -21,4 +21,10 @@ public interface DrawableProperties extends Cloneable {
 
     @ApiStatus.Internal
     boolean isDirty();
+
+    @ApiStatus.Internal
+    boolean isPropertyDirty(int propertyOrdinal);
+
+    @ApiStatus.Internal
+    void setPropertyDirty(int propertyOrdinal, boolean dirty);
 }

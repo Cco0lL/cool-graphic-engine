@@ -27,24 +27,21 @@ public abstract class AbstractElementMatrix implements ElementMatrix {
         }
     }
 
-    public static class Drawable<P extends DrawableProperties> extends AbstractElementMatrix
+    public static abstract class Drawable<P extends DrawableProperties>
+            extends AbstractElementMatrix
             implements ElementMatrix.Drawable<P> {
 
         protected final P properties;
         protected final Matrix4f transformationMatrix = new Matrix4f();
-        protected final Matrix4f[] transformationMatrices = new Matrix4f[Matrices.LENGTH];
 
         public Drawable(P properties) {
             this.properties = properties;
-            for (int i = 0; i < transformationMatrices.length; i++) {
-                transformationMatrices[i] = new Matrix4f();
-            }
         }
 
         @Override
         public void update(ElementMatrix parentMatrix) {
             if (isDirty()) {
-                cleanMatrices();
+                updateMatrices();
                 transformationMatrix.identity();
                 updateTransformationMatrix();
             }
@@ -54,25 +51,9 @@ public abstract class AbstractElementMatrix implements ElementMatrix {
             }
         }
 
-        protected void updateTransformationMatrix() {
-            for (Matrix4f matrix : transformationMatrices) {
-                this.transformationMatrix.mul(matrix);
-            }
-        }
+        protected abstract void updateTransformationMatrix();
 
-        protected void cleanMatrices() {
-            for (int i = 0; i < transformationMatrices.length; i++) {
-                Matrix4f mat = transformationMatrices[i];
-                switch (i) {
-                    case (Matrices.OFFSET_MATRIX) -> Transformations.TRANSLATE
-                            .accept(properties.getOffset(), mat);
-                    case (Matrices.ROTATION_MATRIX) -> Transformations.ROTATE
-                            .accept(properties.getRotation(), mat);
-                    case (Matrices.SCALE_MATRIX) -> Transformations.SCALE
-                            .accept(properties.getScale(), mat);
-                }
-            }
-        }
+        protected abstract void updateMatrices();
 
         @Override
         public Matrix4f getTransformationMatrix() {

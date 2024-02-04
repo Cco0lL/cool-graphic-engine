@@ -15,4 +15,5 @@ public interface IPropertyVector2f extends IPropertyVector {
     void set(IPropertyVector2f other);
 
     void write(IPropertyVector2f dest);
+
 }

@@ -6,6 +6,8 @@ import cool.kolya.implementation.graphic.element2d.ElementGraphic2D;
 import cool.kolya.implementation.scene.element.general.AbstractDrawableElement;
 import cool.kolya.implementation.scene.element.general.IPropertyVector2f;
 import cool.kolya.implementation.scene.element.general.matrix.AbstractElementMatrix;
+import cool.kolya.implementation.scene.element.general.matrix.Properties;
+import cool.kolya.implementation.scene.element.general.matrix.Transformations;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -90,15 +92,45 @@ public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable
 
     private static final class Element2DMatrix extends AbstractElementMatrix.Drawable<Drawable2DProperties> {
 
+        private final Matrix4f[] transformationMatrices = new Matrix4f[Properties.LENGTH];
+
         public Element2DMatrix(Drawable2DProperties properties) {
             super(properties);
+            for (int i = 0; i < transformationMatrices.length; i++) {
+                transformationMatrices[i] = new Matrix4f();
+            }
         }
 
         @Override
         protected void updateTransformationMatrix() {
-            super.updateTransformationMatrix();
-            IPropertyVector2f size = properties.getSize();
-            transformationMatrix.mul(new Matrix4f().translate(-size.x() / 2, -size.y() / 2, 0f));
+            for (Matrix4f matrix : transformationMatrices) {
+                this.transformationMatrix.mul(matrix);
+            }
+        }
+
+        @Override
+        protected void updateMatrices() {
+            for (int i = 0; i < transformationMatrices.length; i++) {
+                if (!properties.isPropertyDirty(i)) {
+                    continue;
+                }
+                Matrix4f mat = transformationMatrices[i];
+                switch (i) {
+                    case (Properties.OFFSET) -> Transformations.TRANSLATE
+                            .accept(properties.getOffset().toVector4f(), mat);
+                    case (Properties.ROTATION) -> Transformations.ROTATE
+                            .accept(properties.getRotation().toVector4f(), mat);
+                    case (Properties.SCALE) -> Transformations.SCALE
+                            .accept(properties.getScale().toVector4f(), mat);
+                    case (Properties.SIZE) -> {
+                        Vector4f sizeOffset = properties.getSize()
+                                .toVector4f()
+                                .mul(-0.5f, -0.5f, 1f ,1f);
+                        Transformations.TRANSLATE.accept(sizeOffset, mat);
+                    }
+                }
+                properties.setPropertyDirty(i, false);
+            }
         }
     }
 }

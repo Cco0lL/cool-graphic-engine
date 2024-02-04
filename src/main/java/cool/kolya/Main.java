@@ -1,12 +1,15 @@
 package cool.kolya;
 
-import cool.kolya.implementation.scene.Scene;
-import cool.kolya.implementation.scene.element.context2d.Context2D;
 import cool.kolya.engine.Engine;
 import cool.kolya.engine.data.WindowSize;
+import cool.kolya.engine.event.EventHandler;
+import cool.kolya.engine.event.EventListener;
+import cool.kolya.engine.event.UpdateEvent;
 import cool.kolya.engine.process.EngineProcess;
 import cool.kolya.engine.process.ProcessSettings;
 import cool.kolya.implementation.ProcessRunner;
+import cool.kolya.implementation.scene.Scene;
+import cool.kolya.implementation.scene.element.context2d.Context2D;
 import cool.kolya.implementation.scene.element.context2d.Drawable2DProperties;
 import cool.kolya.implementation.scene.element.context2d.RectangleElement;
 import cool.kolya.implementation.scene.element.general.IPropertyVector2f;
@@ -48,6 +51,19 @@ public class Main {
                 properties.markDirty();
             });
 
+            processor.getEventBus().registerListener(new EventListener() {
+
+                private int tick;
+
+                @EventHandler
+                void handleUpdate(UpdateEvent event) {
+                    if (++tick % 20 == 0) {
+                        IPropertyVector3f offset = properties.getOffset();
+                        offset.set(offset.x() + 10f, offset.y() + 10f, 0f);
+                    }
+                }
+            });
+
             context2D.addChild(rectangle);
         }).run();
     }
@@ -80,7 +96,6 @@ public class Main {
                 } else {
                     size.set(size.x() - 100, size.y() - 100);
                 }
-                properties.markDirty();
             });
 
             context2D.addChild(rectangle);

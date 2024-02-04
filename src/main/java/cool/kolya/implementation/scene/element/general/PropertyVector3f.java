@@ -7,16 +7,16 @@ public class PropertyVector3f extends PropertyVector2f implements IPropertyVecto
 
     protected float z;
 
-    public PropertyVector3f(PropertyVector3f other) {
-        this(other.x(), other.y(), other.z(), other.properties);
+    public PropertyVector3f(PropertyVector3f other, int propertyOrdinal) {
+        this(other.x(), other.y(), other.z(), other.properties, propertyOrdinal);
     }
 
-    public PropertyVector3f(float d, DrawableProperties properties) {
-        this(d, d, d, properties);
+    public PropertyVector3f(float d, DrawableProperties properties, int propertyOrdinal) {
+        this(d, d, d, properties, propertyOrdinal);
     }
 
-    public PropertyVector3f(float x, float y, float z, DrawableProperties properties) {
-        super(x, y, properties);
+    public PropertyVector3f(float x, float y, float z, DrawableProperties properties, int propertyOrdinal) {
+        super(x, y, properties, propertyOrdinal);
         this.z = z;
     }
 
@@ -28,13 +28,15 @@ public class PropertyVector3f extends PropertyVector2f implements IPropertyVecto
     @Override
     public void z(float z) {
         this.z = z;
+        markDirty();
     }
 
     @Override
     public void set(float x, float y, float z) {
-        x(x);
-        y(y);
-        z(z);
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        markDirty();
     }
 
     @Override
