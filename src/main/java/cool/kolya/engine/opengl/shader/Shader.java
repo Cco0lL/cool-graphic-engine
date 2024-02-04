@@ -1,7 +1,5 @@
 package cool.kolya.engine.opengl.shader;
 
-import cool.kolya.Engine;
-import cool.kolya.engine.DestructorProvider;
 import org.lwjgl.opengl.GL33;
 
 import java.lang.ref.Cleaner;
@@ -16,7 +14,7 @@ public class Shader {
     private final Type type;
     private final Cleaner.Cleanable destructor;
 
-    public Shader(String code, Type type) throws Exception {
+    public Shader(String code, Type type, Cleaner cleaner) throws Exception {
         this.type = type;
         id = GL33.glCreateShader(type.getGlCode());
         if (id == GL33.GL_ZERO) {
@@ -29,8 +27,10 @@ public class Shader {
         if (glGetShaderi(id, GL_COMPILE_STATUS) == GL_FALSE) {
             throw new Exception("Error compiling Shader code: " + glGetShaderInfoLog(id, 1024));
         }
-        destructor = Engine.getProcessor().getDestructorProvider().createDestructor(this,
-                () -> GL33.glDeleteShader(id));
+        //noinspection CapturingCleaner
+        destructor = cleaner.register(this, () -> {
+            GL33.glDeleteShader(id);
+        });
     }
 
     public int getId() {

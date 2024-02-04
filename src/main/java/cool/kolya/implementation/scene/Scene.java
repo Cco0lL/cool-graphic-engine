@@ -1,12 +1,24 @@
 package cool.kolya.implementation.scene;
 
+import cool.kolya.implementation.scene.element.general.ContextElement;
+import cool.kolya.implementation.scene.element.general.DrawableProperties;
+
+import java.util.Collection;
+import java.util.UUID;
+
 public interface Scene {
 
-    Iterable<AbstractElement> getElements();
+    static Scene getContext() {
+        return ContextScene.getContext();
+    }
 
-    void addElement(AbstractElement element);
+    void updateAndRenderContexts();
 
-    void update();
+    void addContext(ContextElement<?> contextElement);
 
-    void render();
+    void removeContext(UUID id);
+
+    <P extends DrawableProperties> ContextElement<P> getContext(UUID uuid, Class<P> cClass);
+
+    Collection<ContextElement<? extends DrawableProperties>> getContexts();
 }

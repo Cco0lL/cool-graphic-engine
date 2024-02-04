@@ -1,5 +1,7 @@
 package cool.kolya.engine.event;
 
+import cool.kolya.engine.event.bus.EventBus;
+
 /**
  * <p> Represents an event listener marker. Inheritors of this interface could have event handlers.
  *

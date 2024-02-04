@@ -1,6 +1,5 @@
 package cool.kolya.engine.opengl.uniform;
 
-import cool.kolya.engine.util.MemUtil;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL33;
 import org.lwjgl.system.MemoryStack;
@@ -15,9 +14,9 @@ public class Matrix4fUniform extends AbstractUniform<Matrix4f> {
 
     @Override
     public void set(Matrix4f value) {
-        int matrixRank = 4;
-        int matrixSize = matrixRank * matrixRank;
-        try (MemoryStack stack = MemoryStack.create(MemUtil.FLOAT_SIZE * matrixSize)) {
+        super.set(value);
+        int matrixSize = 16;
+        try (MemoryStack stack = MemoryStack.create(Float.BYTES * matrixSize)) {
             stack.push();
             FloatBuffer buffer = stack.mallocFloat(matrixSize);
             value.get(buffer);

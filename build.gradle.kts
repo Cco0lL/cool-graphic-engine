@@ -34,13 +34,15 @@ allprojects {
 
         //libs
         implementation("org.joml", "joml", jomlVersion)
-        implementation("org.slf4j", "slf4j-api", "2.0.7")
-        implementation("org.slf4j","slf4j-log4j12","2.0.7")
+//        implementation("org.slf4j", "slf4j-api", "2.0.7")
+//        implementation("org.slf4j","slf4j-log4j12","2.0.7")
 
         implementation("org.jetbrains","annotations","24.0.1")
 
         // https://mvnrepository.com/artifact/it.unimi.dsi/fastutil
         implementation("it.unimi.dsi:fastutil:8.5.12")
+        // https://mvnrepository.com/artifact/org.jctools/jctools-core
+        implementation("org.jctools:jctools-core:4.0.2")
 
         testImplementation(platform("org.junit:junit-bom:5.9.1"))
         testImplementation("org.junit.jupiter:junit-jupiter")

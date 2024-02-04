@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="removed useless stack trace print">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Test.java" afterDir="false" />
+    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="refactor(generator): new architecture">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Engine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/MainThreadTaskScheduler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/callback/Callbacks.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/ProcessStartEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/ProcessTerminateEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Vector2fUniform.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/ContextInputEventsManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/EngineProcess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/ProcessManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/ProcessSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/loop/DefaultProcessLoopProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/loop/MainThreadProcessLoop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/loop/ProcessLoop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/process/loop/ProcessLoopImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/util/GLFWUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/util/ThreadScopeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/ProcessRunner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/component/Display.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/component/Mouse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/context2d/ContextGraphic2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/context2d/Graphic2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/element2d/ElementContextGraphic2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/element2d/ElementGraphic2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/ContextScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/AbstractElement2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/AbstractParent2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/Context2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/Drawable2DProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/Drawable2DPropertiesImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/Element2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/ElementCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/ElementCallbacks.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/ElementMouseState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/RectangleElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/AbstractDrawableElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/AbstractDrawableProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/AbstractElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/ContextElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/DrawableElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/DrawableProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/Element.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/IPropertyVector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/IPropertyVector2f.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/IPropertyVector3f.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/Parent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/PropertyVector2f.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/PropertyVector3f.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/AbstractElementMatrix.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/ElementMatrix.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/MatrixTransformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/Transformations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/2d_element_vertex_shader.vs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/2d_vertex_shader.vs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/Engine.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBusImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Callbacks.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/DestructorProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/EngineProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Mouse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Projection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/old/Projection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Renderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Updater.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/Window.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/WindowCallbackListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/callback/listener/WindowCallbackListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/WindowCallbackListenerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/callback/listener/WindowCallbackListenerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/data/Resolution.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/bus/EventBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/bus/EventBusImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/event/EventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/Shader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/Shader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/ShaderProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/shader/ShaderProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/AbstractUniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/AbstractUniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Matrix4fUniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Matrix4fUniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Uniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Uniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Vector4fUniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Vector4fUniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/util/IconUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/util/MemUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/util/ResourceUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/util/ResourceUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/old/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/old/Listener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/old/TestElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/TestPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/old/TestPlane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/AbstractElement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/Matrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/Matrices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/ProxiedVector3f.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/Scene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/SceneImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/cool/kolya/vertex_shader.vs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/3d_vertex_shader.vs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,16 +136,29 @@
         <option value="Enum" />
         <option value="Kotlin File" />
         <option value="Kotlin Object" />
-        <option value="Record" />
         <option value="Kotlin Class" />
+        <option value="package-info" />
         <option value="Interface" />
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Nikolay Belov &lt;nikolaybelv@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2SHLxgXnFugbZkeI9CGT7dPrX2B" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -64,23 +167,35 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build cool-graphic-engine.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.Upgrade Gradle wrapper.executor": "Run",
+    "Gradle.cool-graphic-engine [:Main.main()].executor": "Run",
+    "Kotlin.MainKt (1).executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "openjdk-20",
-    "project.structure.last.edited": "Problems",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editor.preferences.folding"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="cool.kolya.api.scene.element.context2d" />
+      <recent name="Matrices.OFFSET_MATRIX" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Николай\IdeaProjects\cool-graphic-engine\src\main\resources" />
       <recent name="C:\Users\Николай\IdeaProjects\cool-graphic-engine\src" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="cool.kolya.implementation.scene.element.implementation" />
       <recent name="cool.kolya" />
     </key>
   </component>
@@ -120,7 +235,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="MainKt (1)" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
@@ -203,7 +318,55 @@
       <option name="project" value="LOCAL" />
       <updated>1692262293046</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refactor(engine): removed default config support">
+      <option name="closed" value="true" />
+      <created>1705622108436</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1705622108436</updated>
+    </task>
+    <task id="LOCAL-00007" summary="refactor(engine): removed default config support">
+      <option name="closed" value="true" />
+      <created>1705622180002</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705622180002</updated>
+    </task>
+    <task id="LOCAL-00008" summary="refactor(engine): removed default config support">
+      <option name="closed" value="true" />
+      <created>1705622575297</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1705622575297</updated>
+    </task>
+    <task id="LOCAL-00009" summary="refactor(engine): removed resolution method">
+      <option name="closed" value="true" />
+      <created>1705622818688</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705622818688</updated>
+    </task>
+    <task id="LOCAL-00010" summary="refactor(engine): removed resolution method">
+      <option name="closed" value="true" />
+      <created>1705622937029</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1705622937029</updated>
+    </task>
+    <task id="LOCAL-00011" summary="refactor(generator): changed generation logic">
+      <option name="closed" value="true" />
+      <created>1705696465915</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1705696465915</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,7 +386,11 @@
     <MESSAGE value="camera implementation (without rotation) some code implementation, movement on W S A D keys" />
     <MESSAGE value="some changes" />
     <MESSAGE value="removed useless stack trace print" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed useless stack trace print" />
+    <MESSAGE value="refactor(engine): removed default config support" />
+    <MESSAGE value="refactor(engine): removed resolution method" />
+    <MESSAGE value="refactor(generator): changed generation logic" />
+    <MESSAGE value="refactor(generator): new architecture" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(generator): new architecture" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -235,11 +402,16 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.7/f887f95694cd20d51a062446b6e3d09dd02d98ff/slf4j-api-2.0.7-sources.jar!/org/slf4j/Logger.java</url>
           <line>801</line>
-          <properties class="org.slf4j.Logger" method="error">
+          <properties class="org.slf4j.Logger">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/cool/kolya/engine/callback/listener/WindowCallbackListener.java</url>
+          <line>7</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -7,14 +7,12 @@ import java.nio.charset.StandardCharsets;
 public class ResourceUtil {
 
     public static String readResource(String resourceFile) throws IOException, NullPointerException {
-        String content;
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         try (InputStream is = cl.getResourceAsStream(resourceFile)) {
             if (is == null) {
                 throw new NullPointerException("resource file not exists");
             }
-            content = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+            return new String(is.readAllBytes(), StandardCharsets.UTF_8);
         }
-        return content;
     }
 }

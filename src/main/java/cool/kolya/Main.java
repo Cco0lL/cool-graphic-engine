@@ -1,114 +1,89 @@
 package cool.kolya;
 
-import cool.kolya.engine.EngineProcessor;
-import cool.kolya.engine.Renderer;
-import cool.kolya.engine.Updater;
-import cool.kolya.engine.Window;
-import cool.kolya.engine.event.*;
-import cool.kolya.implementation.Camera;
-import cool.kolya.implementation.Listener;
-import cool.kolya.implementation.TestElement;
-import cool.kolya.implementation.TestPlane;
-import cool.kolya.engine.opengl.shader.Shader;
-import cool.kolya.engine.opengl.shader.ShaderProgram;
-import cool.kolya.engine.opengl.uniform.Matrix4fUniform;
-import cool.kolya.engine.opengl.uniform.Vector4fUniform;
 import cool.kolya.implementation.scene.Scene;
-import cool.kolya.engine.util.ResourceUtil;
-import cool.kolya.implementation.scene.SceneImpl;
-import org.lwjgl.glfw.GLFW;
+import cool.kolya.implementation.scene.element.context2d.Context2D;
+import cool.kolya.engine.Engine;
+import cool.kolya.engine.data.WindowSize;
+import cool.kolya.engine.process.EngineProcess;
+import cool.kolya.engine.process.ProcessSettings;
+import cool.kolya.implementation.ProcessRunner;
+import cool.kolya.implementation.scene.element.context2d.Drawable2DProperties;
+import cool.kolya.implementation.scene.element.context2d.RectangleElement;
+import cool.kolya.implementation.scene.element.general.IPropertyVector2f;
+import cool.kolya.implementation.scene.element.general.IPropertyVector3f;
 
 public class Main {
 
     public static void main(String[] args) {
         Engine.initialize();
+        //Engine.getMainThreadTaskScheduler().offerInTaskQueue(() -> newProcess(1));
+        //newProcess(1);
+        EngineProcess processor = Engine.newProcess();
 
-        Scene scene = new SceneImpl();
+        ProcessSettings windowSettings = processor.getSettings();
+        windowSettings.setTitle("Test");
+        windowSettings.setWindowSize(new WindowSize(800, 600));
 
-        Updater updater = scene::update;
-        Renderer renderer = scene::render;
+        new ProcessRunner(processor, () -> {
+            Context2D context2D = new Context2D();
+            Scene scene = Scene.getContext();
+            scene.addContext(context2D);
 
-        Camera camera = new Camera();
-        camera.updateCameraMatrix();
-        ShaderProgram testProgram = testShaderProgram();
+            RectangleElement rectangle = new RectangleElement();
+            Drawable2DProperties properties = rectangle.getProperties();
 
-        TestPlane plane = new TestPlane(testProgram, camera);
-        plane.getColor().set(1f);
+            properties.getOffset().set(400f, 300f);
+            //properties.getScale().set(2f, 2f);
+            properties.getColor().set(0.5f, 0.5f, 0.5f, 1.0f);
+            properties.getSize().set(100f, 100f);
+            properties.markDirty();
 
-        TestElement first = new TestElement(testProgram, camera);
-        TestElement second = new TestElement(testProgram, camera);
+            rectangle.addHoverCallback(() -> {
+                IPropertyVector2f size = properties.getSize();
+                if (!rectangle.isHovered()) {
+                    size.set(size.x() + 100, size.y() + 100);
+                } else {
+                    size.set(size.x() - 100, size.y() - 100);
+                }
+                properties.markDirty();
+            });
 
-        first.getOffset().set(-1.0f, 0.0f, 0.0f);
-        second.getOffset().set(1.0f, 0.0f, 0.0f);
-
-        first.getColor().set(1f, (float) 215 / 255, 0f, 1.0f);
-        second.getColor().set(0.5f, 0.5f, 0.5f, 1.0f);
-
-        first.getRotation().z(-90f);
-        second.getRotation().z(90f);
-        plane.getRotation().x(-90);
-
-        scene.addElement(plane);
-        scene.addElement(first);
-        scene.addElement(second);
-
-        EngineProcessor processor = Engine.getProcessor();
-        processor.setUpdater(updater);
-        processor.setRenderer(renderer);
-
-        Listener listener = new Listener(camera);
-        EventBus.getInstance().registerListener(listener);
-      //  EventBus.getInstance().registerListener(new DebugListener());
-
-        GLFW.glfwSetInputMode(processor.getWindow().getWindowPointer(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
-        Engine.start();
+            context2D.addChild(rectangle);
+        }).run();
     }
 
-    public static ShaderProgram testShaderProgram() {
-        try {
-            ShaderProgram program = new ShaderProgram();
+    public static void newProcess(int i) {
+        EngineProcess processor = Engine.newProcess();
 
-            Shader vertexShader = new Shader(ResourceUtil.readResource("cool/kolya/vertex_shader.vs"),
-                    Shader.Type.VERTEX);
-            Shader fragmentShader = new Shader(ResourceUtil.readResource("cool/kolya/fragment_shader.fs"),
-                    Shader.Type.FRAGMENT);
+        ProcessSettings windowSettings = processor.getSettings();
+        windowSettings.setTitle("Test" + i);
+        windowSettings.setWindowSize(new WindowSize(800, 600));
 
-            program.addShader(vertexShader);
-            program.addShader(fragmentShader);
+        new ProcessRunner(processor, () -> {
+            Context2D context2D = new Context2D();
+            Scene scene = Scene.getContext();
+            scene.addContext(context2D);
 
-            program.link();
+            RectangleElement rectangle = new RectangleElement();
+            Drawable2DProperties properties = rectangle.getProperties();
 
-            program.createUniform("projectionMatrix", Matrix4fUniform::new);
-            program.createUniform("incolor", Vector4fUniform::new);
-            program.createUniform("elementMatrix", Matrix4fUniform::new);
-            program.createUniform("cameraMatrix", Matrix4fUniform::new);
-            return program;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new RuntimeException(ex);
-        }
-    }
+            properties.getOffset().set(400f, 300f);
+            //properties.getScale().set(2f, 2f);
+            properties.getColor().set(0.5f, 0.5f, 0.5f, 1.0f);
+            properties.getSize().set(100f, 100f);
+            properties.markDirty();
 
-    public static class DebugListener implements EventListener {
+            rectangle.addHoverCallback(() -> {
+                IPropertyVector2f size = properties.getSize();
+                if (!rectangle.isHovered()) {
+                    size.set(size.x() + 100, size.y() + 100);
+                } else {
+                    size.set(size.x() - 100, size.y() - 100);
+                }
+                properties.markDirty();
+            });
 
-        @EventHandler
-        void handle(KeyTypeEvent keyTypeEvent) {
-            System.out.println("typed");
-        }
-
-        @EventHandler
-        void handle(ClickEvent clickEvent) {
-            System.out.println("clicked");
-        }
-
-        @EventHandler
-        void handle(CursorEnterEvent event) {
-            System.out.println("cursor entered");
-        }
-
-        @EventHandler
-        void handle(CursorMoveEvent event) {
-            System.out.println("moved: " + event.xPos() + ", " + event.yPos());
-        }
+            context2D.addChild(rectangle);
+        }).run();
     }
 }
