@@ -58,8 +58,7 @@ public class Main {
                 @EventHandler
                 void handleUpdate(UpdateEvent event) {
                     if (++tick % 20 == 0) {
-                        IPropertyVector3f offset = properties.getOffset();
-                        offset.set(offset.x() + 10f, offset.y() + 10f, 0f);
+                        properties.getOffset().add(10f, 10f, 0f);
                     }
                 }
             });

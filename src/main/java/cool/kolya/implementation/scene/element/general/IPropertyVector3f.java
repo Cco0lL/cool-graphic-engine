@@ -10,5 +10,9 @@ public interface IPropertyVector3f extends IPropertyVector2f {
 
     void set(IPropertyVector3f other);
 
+    void add(float x, float y, float z);
+
+    void remove(float x, float y, float z);
+
     void write(IPropertyVector3f dest);
 }

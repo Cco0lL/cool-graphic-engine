@@ -60,6 +60,20 @@ public class PropertyVector2f implements IPropertyVector2f {
     }
 
     @Override
+    public void add(float x, float y) {
+        this.x += x;
+        this.y += y;
+        markDirty();
+    }
+
+    @Override
+    public void remove(float x, float y) {
+        this.x -= x;
+        this.y -= y;
+        markDirty();
+    }
+
+    @Override
     public void write(IPropertyVector2f dest) {
         dest.set(this);
     }

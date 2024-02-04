@@ -45,6 +45,21 @@ public class PropertyVector3f extends PropertyVector2f implements IPropertyVecto
     }
 
     @Override
+    public void add(float x, float y, float z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        markDirty();
+    }
+
+    @Override
+    public void remove(float x, float y, float z) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+    }
+
+    @Override
     public void write(IPropertyVector3f dest) {
         dest.set(this);
     }
