@@ -60,7 +60,7 @@ public class ProcessLoopImpl implements ProcessLoop {
         long frameStartTime = System.currentTimeMillis();
         final int tickTime = process.getSettings().getTickTime();
 
-        long prevFrameTimeElapsed = lastFrameStartTime - frameStartTime;
+        long prevFrameTimeElapsed = frameStartTime - lastFrameStartTime;
         lastFrameStartTime = frameStartTime;
 
         timeFromLastUpdate += prevFrameTimeElapsed;
