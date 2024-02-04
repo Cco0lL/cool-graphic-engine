@@ -11,6 +11,7 @@ public interface DrawableElement<P extends DrawableProperties> extends Element {
     default void updateAndRender(ElementMatrix parentMatrixTree) {
         update();
         getElementMatrix().update(parentMatrixTree);
+        getProperties().unmarkDirty();
         render();
     }
 

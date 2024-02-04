@@ -43,14 +43,15 @@ public abstract class AbstractElementMatrix implements ElementMatrix {
 
         @Override
         public void update(ElementMatrix parentMatrix) {
-            elementMatrix.set(parentMatrix.getMatrix());
             if (isDirty()) {
                 cleanMatrices();
                 transformationMatrix.identity();
                 updateTransformationMatrix();
-                properties.unmarkDirty();
             }
-            elementMatrix.mul(transformationMatrix);
+            if (isDirty() || parentMatrix.isDirty()) {
+                elementMatrix.set(parentMatrix.getMatrix());
+                elementMatrix.mul(transformationMatrix);
+            }
         }
 
         protected void updateTransformationMatrix() {

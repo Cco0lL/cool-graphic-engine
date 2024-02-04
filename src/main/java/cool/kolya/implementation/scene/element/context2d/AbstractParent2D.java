@@ -15,10 +15,12 @@ public abstract class AbstractParent2D extends AbstractElement2D
             Collections.unmodifiableCollection(childrenMap.values());
 
     @Override
-    @SuppressWarnings("unchecked")
     public void updateAndRender(ElementMatrix parentMatrixTree) {
-        super.updateAndRender(parentMatrixTree);
+        update();
+        getElementMatrix().update(parentMatrixTree);
+        render();
         updateAndRenderChildren(getElementMatrix());
+        getProperties().unmarkDirty();
     }
 
     @Override
