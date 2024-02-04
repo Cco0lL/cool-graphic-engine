@@ -32,17 +32,17 @@ public abstract class AbstractDrawableProperties implements DrawableProperties {
     }
 
     @Override
-    public synchronized void markDirty() {
+    public void markDirty() {
         dirty = true;
     }
 
     @Override
-    public synchronized void unmarkDirty() {
+    public void unmarkDirty() {
         dirty = false;
     }
 
     @Override
-    public synchronized boolean isDirty() {
+    public boolean isDirty() {
         return dirty;
     }
 }
