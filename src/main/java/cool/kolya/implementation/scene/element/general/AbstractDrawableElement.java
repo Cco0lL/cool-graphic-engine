@@ -12,7 +12,7 @@ public abstract class AbstractDrawableElement<P extends DrawableProperties>
     protected final int vaoId = GL33.glGenVertexArrays();
     protected final int vboId = GL33.glGenBuffers();
     protected P properties;
-    protected ElementMatrix.Drawable<P> elementMatrix;
+    protected ElementMatrix.Drawable elementMatrix;
 
     public AbstractDrawableElement() {
         int vaoId = this.vaoId;
@@ -24,7 +24,7 @@ public abstract class AbstractDrawableElement<P extends DrawableProperties>
     }
 
     @Override
-    public ElementMatrix.Drawable<P> getElementMatrix() {
+    public ElementMatrix.Drawable getElementMatrix() {
         return elementMatrix;
     }
 

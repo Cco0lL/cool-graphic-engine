@@ -3,16 +3,16 @@ package cool.kolya.implementation.scene.element.context2d;
 import cool.kolya.engine.data.WindowSize;
 import cool.kolya.implementation.component.Display;
 import cool.kolya.implementation.scene.element.general.ContextElement;
-import cool.kolya.implementation.scene.element.general.matrix.AbstractElementMatrix;
+import cool.kolya.implementation.scene.element.general.matrix.ElementMatrixImpl;
 import org.joml.Matrix4f;
 
-public class Context2D extends ContextElement<Drawable2DProperties> {
+public class Context2D extends ContextElement<DrawableProperties2D> {
 
     public Context2D() {
-        matrix = new Context2DMatrix();
+        matrix = new ContextMatrix2D();
     }
 
-    private static final class Context2DMatrix extends AbstractElementMatrix.Context {
+    private static final class ContextMatrix2D extends ElementMatrixImpl.Context {
 
         @Override
         public void update() {

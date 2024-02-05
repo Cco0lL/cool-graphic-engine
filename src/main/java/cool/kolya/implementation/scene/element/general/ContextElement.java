@@ -1,6 +1,6 @@
 package cool.kolya.implementation.scene.element.general;
 
-import cool.kolya.implementation.scene.element.general.matrix.AbstractElementMatrix;
+import cool.kolya.implementation.scene.element.general.matrix.ElementMatrixImpl;
 import cool.kolya.implementation.scene.element.general.matrix.ElementMatrix;
 
 import java.util.*;
@@ -10,7 +10,7 @@ public class ContextElement<P extends DrawableProperties> extends AbstractElemen
     protected final Map<UUID, DrawableElement<? extends P>> childrenMap = new HashMap<>();
     protected final Collection<DrawableElement<? extends P>> unmodifiableChildren =
             Collections.unmodifiableCollection(childrenMap.values());
-    protected AbstractElementMatrix.Context matrix;
+    protected ElementMatrixImpl.Context matrix;
 
     public void updateAndRender() {
         updateAndRenderChildren(matrix);

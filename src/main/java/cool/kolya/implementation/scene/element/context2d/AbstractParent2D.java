@@ -7,11 +7,11 @@ import cool.kolya.implementation.scene.element.general.matrix.ElementMatrix;
 import java.util.*;
 
 public abstract class AbstractParent2D extends AbstractElement2D
-        implements Parent<Drawable2DProperties> {
+        implements Parent<DrawableProperties2D> {
 
-    protected final Map<UUID, DrawableElement<? extends Drawable2DProperties>> childrenMap =
+    protected final Map<UUID, DrawableElement<? extends DrawableProperties2D>> childrenMap =
             new HashMap<>();
-    protected final Collection<DrawableElement<? extends Drawable2DProperties>> unmodifiableChildren =
+    protected final Collection<DrawableElement<? extends DrawableProperties2D>> unmodifiableChildren =
             Collections.unmodifiableCollection(childrenMap.values());
 
     @Override
@@ -24,17 +24,17 @@ public abstract class AbstractParent2D extends AbstractElement2D
     }
 
     @Override
-    public Collection<DrawableElement<? extends Drawable2DProperties>> getChildren() {
+    public Collection<DrawableElement<? extends DrawableProperties2D>> getChildren() {
         return unmodifiableChildren;
     }
 
     @Override
-    public DrawableElement<? extends Drawable2DProperties> getChild(UUID id) {
+    public DrawableElement<? extends DrawableProperties2D> getChild(UUID id) {
         return childrenMap.get(id);
     }
 
     @Override
-    public void addChild(DrawableElement<? extends Drawable2DProperties> child) {
+    public void addChild(DrawableElement<? extends DrawableProperties2D> child) {
         childrenMap.put(child.getId(), child);
     }
 

@@ -14,7 +14,7 @@ public interface ElementMatrix {
         void update();
     }
 
-    interface Drawable<P extends DrawableProperties> extends ElementMatrix {
+    interface Drawable extends ElementMatrix {
 
         void update(ElementMatrix parentMatrix);
 

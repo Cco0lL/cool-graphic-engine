@@ -5,11 +5,13 @@ import org.joml.Vector4f;
 
 public interface DrawableProperties extends Cloneable {
 
-    IPropertyVector3f getOffset();
+    IPropertyVector getOffset();
 
-    IPropertyVector3f getRotation();
+    IPropertyVector getRotation();
 
-    IPropertyVector3f getScale();
+    IPropertyVector getScale();
+
+    IPropertyVector getSize();
 
     Vector4f getColor();
 

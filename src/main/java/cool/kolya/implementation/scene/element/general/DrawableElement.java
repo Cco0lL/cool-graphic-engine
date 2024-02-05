@@ -17,5 +17,5 @@ public interface DrawableElement<P extends DrawableProperties> extends Element {
 
     P getProperties();
 
-    ElementMatrix.Drawable<P> getElementMatrix();
+    ElementMatrix.Drawable getElementMatrix();
 }

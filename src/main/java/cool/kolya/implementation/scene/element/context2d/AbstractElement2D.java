@@ -5,23 +5,21 @@ import cool.kolya.implementation.component.Mouse;
 import cool.kolya.implementation.graphic.element2d.ElementGraphic2D;
 import cool.kolya.implementation.scene.element.general.AbstractDrawableElement;
 import cool.kolya.implementation.scene.element.general.IPropertyVector2f;
-import cool.kolya.implementation.scene.element.general.matrix.AbstractElementMatrix;
-import cool.kolya.implementation.scene.element.general.matrix.Properties;
-import cool.kolya.implementation.scene.element.general.matrix.Transformations;
+import cool.kolya.implementation.scene.element.general.matrix.ElementMatrixImpl;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
-public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable2DProperties>
+public abstract class AbstractElement2D extends AbstractDrawableElement<DrawableProperties2D>
         implements Element2D  {
 
-    protected Drawable2DProperties properties = new Drawable2DPropertiesImpl();
+    protected DrawableProperties2D properties = new DrawableProperties2D();
     protected ElementMouseState mouseState = new ElementMouseState();
     protected ElementCallbacks callbacks = new ElementCallbacks();
     protected boolean hovered;
 
     public AbstractElement2D() {
-        elementMatrix = new Element2DMatrix(properties);
+        elementMatrix = new ElementMatrixImpl.Drawable(properties);
     }
 
     public abstract void drawSelf();
@@ -52,7 +50,7 @@ public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable
     }
 
     @Override
-    public Drawable2DProperties getProperties() {
+    public DrawableProperties2D getProperties() {
         return properties;
     }
 
@@ -86,50 +84,6 @@ public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable
                 callbacks.getCallback(ElementCallback.Type.HOVER).call();
             } finally {
                 this.hovered = hovered;
-            }
-        }
-    }
-
-    private static final class Element2DMatrix extends AbstractElementMatrix.Drawable<Drawable2DProperties> {
-
-        private final Matrix4f[] transformationMatrices = new Matrix4f[Properties.LENGTH];
-
-        public Element2DMatrix(Drawable2DProperties properties) {
-            super(properties);
-            for (int i = 0; i < transformationMatrices.length; i++) {
-                transformationMatrices[i] = new Matrix4f();
-            }
-        }
-
-        @Override
-        protected void updateTransformationMatrix() {
-            for (Matrix4f matrix : transformationMatrices) {
-                this.transformationMatrix.mul(matrix);
-            }
-        }
-
-        @Override
-        protected void updateMatrices() {
-            for (int i = 0; i < transformationMatrices.length; i++) {
-                if (!properties.isPropertyDirty(i)) {
-                    continue;
-                }
-                Matrix4f mat = transformationMatrices[i];
-                switch (i) {
-                    case (Properties.OFFSET) -> Transformations.TRANSLATE
-                            .accept(properties.getOffset().toVector4f(), mat);
-                    case (Properties.ROTATION) -> Transformations.ROTATE
-                            .accept(properties.getRotation().toVector4f(), mat);
-                    case (Properties.SCALE) -> Transformations.SCALE
-                            .accept(properties.getScale().toVector4f(), mat);
-                    case (Properties.SIZE) -> {
-                        Vector4f sizeOffset = properties.getSize()
-                                .toVector4f()
-                                .mul(-0.5f, -0.5f, 1f ,1f);
-                        Transformations.TRANSLATE.accept(sizeOffset, mat);
-                    }
-                }
-                properties.setPropertyDirty(i, false);
             }
         }
     }
