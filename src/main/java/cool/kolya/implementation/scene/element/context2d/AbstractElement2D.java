@@ -10,6 +10,7 @@ import cool.kolya.implementation.scene.element.general.matrix.Properties;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import org.lwjgl.opengl.GL33;
 
 public abstract class AbstractElement2D extends AbstractDrawableElement<DrawableProperties2D>
         implements Element2D  {
@@ -47,9 +48,25 @@ public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable
     @Override
     public void render() {
         ElementGraphic2D.enable();
+
         ElementGraphic2D.color(getProperties().getColor());
         ElementGraphic2D.elementMatrix(elementMatrix.getMatrix());
+
+        GL33.glBindVertexArray(vaoId);
+
+        String texture = getTexture();
+        if (texture != null) {
+            ElementGraphic2D.textureBind(texture);
+        }
+
         drawSelf();
+
+        if (texture != null) {
+            ElementGraphic2D.textureUnbind();
+        }
+
+        GL33.glBindVertexArray(0);
+
         ElementGraphic2D.disable();
     }
 

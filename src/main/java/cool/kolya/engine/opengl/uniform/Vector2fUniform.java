@@ -14,7 +14,6 @@ public class Vector2fUniform extends AbstractUniform<Vector2f> {
 
     @Override
     public void set(Vector2f value) {
-        super.set(value);
         int vectorSize = 2;
         try (MemoryStack stack = MemoryStack.create(Float.BYTES * vectorSize)) {
             stack.push();

@@ -18,4 +18,8 @@ public interface DrawableElement<P extends DrawableProperties> extends Element {
     P getProperties();
 
     ElementMatrix.Drawable getElementMatrix();
+
+    void setTexture(String texture);
+
+    String getTexture();
 }

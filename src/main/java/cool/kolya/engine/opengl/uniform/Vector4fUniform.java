@@ -14,7 +14,6 @@ public class Vector4fUniform extends AbstractUniform<Vector4f> {
 
     @Override
     public void set(Vector4f value) {
-        super.set(value);
         int vectorSize = 4;
         try (MemoryStack stack = MemoryStack.create(Float.BYTES * vectorSize)) {
             stack.push();

@@ -7,20 +7,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="fix update scheduling">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/Properties.java" afterDir="false" />
+    <list default="true" id="d129338c-0b84-4e94-8edc-f308243a0755" name="Changes" comment="align and origin">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/texture/Texture2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/texture/Texture2DImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/IntUniform.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/Texture2DManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/2d_element_fragment_shader.fs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/pickaxe.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/AbstractUniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/AbstractUniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Matrix4fUniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Matrix4fUniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Vector2fUniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Vector2fUniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Vector4fUniform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/engine/opengl/uniform/Vector4fUniform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/ProcessRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/ProcessRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/element2d/ElementContextGraphic2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/element2d/ElementContextGraphic2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/element2d/ElementGraphic2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/graphic/element2d/ElementGraphic2D.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/AbstractElement2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/AbstractElement2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/Drawable2DPropertiesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/Drawable2DPropertiesImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/AbstractDrawableProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/AbstractDrawableProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/DrawableProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/DrawableProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/IPropertyVector2f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/IPropertyVector2f.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/PropertyVector2f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/PropertyVector2f.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/PropertyVector3f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/PropertyVector3f.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/AbstractElementMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/AbstractElementMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/Matrices.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/MatrixTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/matrix/MatrixTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/RectangleElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/context2d/RectangleElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/AbstractDrawableElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/AbstractDrawableElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/DrawableElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cool/kolya/implementation/scene/element/general/DrawableElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/cool/kolya/2d_element_vertex_shader.vs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/cool/kolya/2d_element_vertex_shader.vs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +68,8 @@
         <option value="Kotlin Object" />
         <option value="Kotlin Class" />
         <option value="package-info" />
-        <option value="Interface" />
         <option value="Record" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -87,30 +95,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build cool-graphic-engine.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.cool-graphic-engine [:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.MainKt (1).executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-20&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.folding&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build cool-graphic-engine.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.Upgrade Gradle wrapper.executor": "Run",
+    "Gradle.cool-graphic-engine [:Main.main()].executor": "Run",
+    "Kotlin.MainKt (1).executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "openjdk-20",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Николай/IdeaProjects/cool-graphic-engine/src/main/resources/cool/kolya",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editor.preferences.folding"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="cool.kolya.api.scene.element.context2d" />
       <recent name="Matrices.OFFSET_MATRIX" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Николай\IdeaProjects\cool-graphic-engine\src\main\resources\cool\kolya" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Николай\IdeaProjects\cool-graphic-engine\src\main\resources" />
@@ -336,7 +348,31 @@
       <option name="project" value="LOCAL" />
       <updated>1707078902797</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="rectangle: better rendering">
+      <option name="closed" value="true" />
+      <created>1707125495076</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1707125495076</updated>
+    </task>
+    <task id="LOCAL-00019" summary="refactor element matrix">
+      <option name="closed" value="true" />
+      <created>1707134150638</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1707134150638</updated>
+    </task>
+    <task id="LOCAL-00020" summary="align and origin">
+      <option name="closed" value="true" />
+      <created>1707148685668</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1707148685668</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -363,7 +399,10 @@
     <MESSAGE value="removed unnecessary synchronized key-words" />
     <MESSAGE value="optimized redundant calculations" />
     <MESSAGE value="fix update scheduling" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix update scheduling" />
+    <MESSAGE value="rectangle: better rendering" />
+    <MESSAGE value="refactor element matrix" />
+    <MESSAGE value="align and origin" />
+    <option name="LAST_COMMIT_MESSAGE" value="align and origin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

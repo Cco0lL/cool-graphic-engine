@@ -28,6 +28,14 @@ public class ElementGraphic2D {
         getContext().elementMatrix(elementMatrix);
     }
 
+    public static void textureBind(String texture) {
+        getContext().textureBind(texture);
+    }
+
+    public static void textureUnbind() {
+        getContext().textureUnbind();
+    }
+
     public static ElementContextGraphic2D getContext() {
         return CONTEXT_GRAPHIC_THREAD_LOCAL.get();
     }

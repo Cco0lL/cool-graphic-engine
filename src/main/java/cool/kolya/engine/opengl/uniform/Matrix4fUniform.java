@@ -14,7 +14,6 @@ public class Matrix4fUniform extends AbstractUniform<Matrix4f> {
 
     @Override
     public void set(Matrix4f value) {
-        super.set(value);
         int matrixSize = 16;
         try (MemoryStack stack = MemoryStack.create(Float.BYTES * matrixSize)) {
             stack.push();

@@ -22,9 +22,7 @@ public abstract class AbstractUniform<V> implements Uniform<V> {
     }
 
     @Override
-    public void set(V value) {
-        this.value = value;
-    }
+    public abstract void set(V value);
 
     @Override
     public V get() {

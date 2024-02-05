@@ -9,17 +9,22 @@ public abstract class AbstractDrawableElement<P extends DrawableProperties>
         extends AbstractElement
         implements DrawableElement<P> {
 
-    protected final int vaoId = GL33.glGenVertexArrays();
-    protected final int vboId = GL33.glGenBuffers();
+    protected final int vaoId = GL33.glGenVertexArrays(), verticesVBOId, texVBOId;
     protected P properties;
+    protected String texture;
     protected ElementMatrix.Drawable elementMatrix;
 
     public AbstractDrawableElement() {
+        int[] vboIds = new int[2];
+        GL33.glGenBuffers(vboIds);
+
         int vaoId = this.vaoId;
-        int vboId = this.vboId;
+        this.verticesVBOId = vboIds[0];
+        this.texVBOId = vboIds[1];
+
         Engine.CLEANER.register(this, () -> {
             GL33.glDeleteVertexArrays(vaoId);
-            GL33.glDeleteBuffers(vboId);
+            GL33.glDeleteBuffers(vboIds);
         });
     }
 
@@ -31,5 +36,15 @@ public abstract class AbstractDrawableElement<P extends DrawableProperties>
     @Override
     public P getProperties() {
         return properties;
+    }
+
+    @Override
+    public void setTexture(String texture) {
+        this.texture = texture;
+    }
+
+    @Override
+    public String getTexture() {
+        return texture;
     }
 }
