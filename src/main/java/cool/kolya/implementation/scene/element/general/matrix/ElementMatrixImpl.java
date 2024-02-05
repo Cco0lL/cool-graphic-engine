@@ -67,20 +67,27 @@ public abstract class ElementMatrixImpl implements ElementMatrix {
                 }
                 Matrix4f mat = transformationMatrices[i];
                 switch (i) {
+                    case (Properties.ALIGN) -> {
+                        Vector4f parentSize = properties.getParentSize().toVector4f();
+                        Vector4f align = properties.getAlign().toVector4f();
+                        align.mul(parentSize);
+                        Transformations.TRANSLATE.accept(align, mat);
+                    }
                     case (Properties.OFFSET) -> Transformations.TRANSLATE
                             .accept(properties.getOffset().toVector4f(), mat);
                     case (Properties.ROTATION) -> Transformations.ROTATE
                             .accept(properties.getRotation().toVector4f(), mat);
                     case (Properties.SCALE) -> Transformations.SCALE
                             .accept(properties.getScale().toVector4f(), mat);
-                    case (Properties.SIZE) -> {
-                        Vector4f sizeOffset = properties.getSize()
-                                .toVector4f()
-                                .mul(-0.5f, -0.5f, -0.5f ,1f);
-                        Transformations.TRANSLATE.accept(sizeOffset, mat);
+                    case (Properties.ORIGIN) -> {
+                        Vector4f size = properties.getSize().toVector4f();
+                        Vector4f origin = properties.getOrigin().toVector4f();
+                        origin.x *= -1;
+                        origin.y *= -1;
+                        origin.mul(size);
+                        Transformations.TRANSLATE.accept(origin, mat);
                     }
                 }
-                properties.setPropertyDirty(i, false);
             }
         }
 

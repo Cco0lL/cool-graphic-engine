@@ -9,7 +9,7 @@ public class RectangleElement extends AbstractParent2D {
     @Override
     public void update() {
         super.update();
-        if (properties.isPropertyDirty(Properties.SIZE)) {
+        if (properties.isPropertyDirty(Properties.MATRICES_LENGTH)) {
             final float[] vertices = vertices();
             GL33.glBindVertexArray(vaoId);
 

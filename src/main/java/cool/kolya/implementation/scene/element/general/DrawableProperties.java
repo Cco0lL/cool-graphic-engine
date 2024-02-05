@@ -13,6 +13,12 @@ public interface DrawableProperties extends Cloneable {
 
     IPropertyVector getSize();
 
+    IPropertyVector getParentSize();
+
+    IPropertyVector getAlign();
+
+    IPropertyVector getOrigin();
+
     Vector4f getColor();
 
     @ApiStatus.Internal

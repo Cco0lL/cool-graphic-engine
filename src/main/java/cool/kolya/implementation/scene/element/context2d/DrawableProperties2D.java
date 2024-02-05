@@ -10,6 +10,9 @@ public class DrawableProperties2D extends AbstractDrawableProperties {
     private final PropertyVector2f rotation = new PropertyVector2f(0, this, Properties.ROTATION);
     private final PropertyVector2f scale = new PropertyVector2f(0, this, Properties.SCALE);
     private final PropertyVector2f size = new PropertyVector2f(0, this, Properties.SIZE);
+    private final  PropertyVector2f parentSize = new PropertyVector2f(0, this, Properties.ALIGN);
+    private final  PropertyVector2f align = new PropertyVector2f(0, this, Properties.ALIGN);
+    private final PropertyVector2f origin = new PropertyVector2f(0.5f, this, Properties.ORIGIN);
 
     @Override
     public PropertyVector2f getOffset() {
@@ -29,5 +32,20 @@ public class DrawableProperties2D extends AbstractDrawableProperties {
     @Override
     public PropertyVector2f getSize() {
         return size;
+    }
+
+    @Override
+    public PropertyVector2f getParentSize() {
+        return parentSize;
+    }
+
+    @Override
+    public PropertyVector2f getAlign() {
+        return align;
+    }
+
+    @Override
+    public PropertyVector2f getOrigin() {
+        return origin;
     }
 }

@@ -32,7 +32,8 @@ public class Main {
             RectangleElement rectangle = new RectangleElement();
             DrawableProperties2D properties = rectangle.getProperties();
 
-            properties.getOffset().set(400f, 300f);
+            //properties.getOffset().set(400f, 300f);
+            properties.getAlign().set(1f, 1f);
             //properties.getScale().set(2f, 2f);
             properties.getColor().set(0.5f, 0.5f, 0.5f, 1.0f);
             properties.getSize().set(100f, 100f);
@@ -41,9 +42,9 @@ public class Main {
             rectangle.addHoverCallback(() -> {
                 IPropertyVector2f size = properties.getSize();
                 if (!rectangle.isHovered()) {
-                    size.set(size.x() + 100, size.y() + 100);
+                  //  size.set(size.x() + 100, size.y() + 100);
                 } else {
-                    size.set(size.x() - 100, size.y() - 100);
+                  //  size.set(size.x() - 100, size.y() - 100);
                 }
                 properties.markDirty();
             });
@@ -55,7 +56,7 @@ public class Main {
                 @EventHandler
                 void handleUpdate(UpdateEvent event) {
                     if (++tick % 20 == 0) {
-                        properties.getOffset().add(10f, 10f);
+                      //  properties.getOffset().add(10f, 10f);
                     }
                 }
             });

@@ -6,6 +6,7 @@ import cool.kolya.implementation.graphic.element2d.ElementGraphic2D;
 import cool.kolya.implementation.scene.element.general.AbstractDrawableElement;
 import cool.kolya.implementation.scene.element.general.IPropertyVector2f;
 import cool.kolya.implementation.scene.element.general.matrix.ElementMatrixImpl;
+import cool.kolya.implementation.scene.element.general.matrix.Properties;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -38,6 +39,9 @@ public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable
     public void update() {
         updateMouseState();
         updateHover();
+        if (properties.isPropertyDirty(Properties.SIZE)) {
+            properties.setPropertyDirty(Properties.ORIGIN, true);
+        }
     }
 
     @Override
