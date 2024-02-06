@@ -2,12 +2,13 @@ package cool.kolya.implementation.scene.element.context2d;
 
 import cool.kolya.implementation.scene.element.general.AbstractDrawableProperties;
 import cool.kolya.implementation.scene.element.general.PropertyVector2f;
+import cool.kolya.implementation.scene.element.general.PropertyVector3f;
 import cool.kolya.implementation.scene.element.general.matrix.Properties;
 
 public class DrawableProperties2D extends AbstractDrawableProperties {
 
     private final PropertyVector2f offset = new PropertyVector2f(0, this, Properties.OFFSET);
-    private final PropertyVector2f rotation = new PropertyVector2f(0, this, Properties.ROTATION);
+    private final PropertyVector3f rotation = new PropertyVector3f(0, this, Properties.ROTATION);
     private final PropertyVector2f scale = new PropertyVector2f(0, this, Properties.SCALE);
     private final PropertyVector2f size = new PropertyVector2f(0, this, Properties.SIZE);
     private final  PropertyVector2f parentSize = new PropertyVector2f(0, this, Properties.ALIGN);
@@ -20,7 +21,7 @@ public class DrawableProperties2D extends AbstractDrawableProperties {
     }
 
     @Override
-    public PropertyVector2f getRotation() {
+    public PropertyVector3f getRotation() {
         return rotation;
     }
 
