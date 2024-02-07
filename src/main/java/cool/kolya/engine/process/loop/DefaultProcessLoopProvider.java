@@ -1,7 +1,7 @@
 package cool.kolya.engine.process.loop;
 
 import cool.kolya.engine.process.EngineProcess;
-import cool.kolya.engine.util.ThreadScopeUtil;
+import cool.kolya.api.util.ThreadScopeUtil;
 
 public class DefaultProcessLoopProvider {
 

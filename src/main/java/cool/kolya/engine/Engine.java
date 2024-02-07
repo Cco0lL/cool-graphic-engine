@@ -7,7 +7,7 @@ import cool.kolya.engine.event.bus.EventBus;
 import cool.kolya.engine.event.bus.EventBusImpl;
 import cool.kolya.engine.process.EngineProcess;
 import cool.kolya.engine.process.ProcessManager;
-import cool.kolya.engine.util.ThreadScopeUtil;
+import cool.kolya.api.util.ThreadScopeUtil;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryUtil;
 

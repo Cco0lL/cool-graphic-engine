@@ -1,6 +1,6 @@
 package cool.kolya.engine;
 
-import cool.kolya.engine.util.ThreadScopeUtil;
+import cool.kolya.api.util.ThreadScopeUtil;
 import org.jctools.queues.MpscUnboundedArrayQueue;
 
 import java.util.concurrent.CompletableFuture;

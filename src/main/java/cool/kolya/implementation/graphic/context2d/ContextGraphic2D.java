@@ -1,10 +1,11 @@
 package cool.kolya.implementation.graphic.context2d;
 
+import cool.kolya.api.resource.ResourceSource;
 import cool.kolya.engine.opengl.shader.Shader;
 import cool.kolya.engine.opengl.shader.ShaderProgram;
 import cool.kolya.engine.opengl.uniform.Matrix4fUniform;
 import cool.kolya.engine.opengl.uniform.Vector4fUniform;
-import cool.kolya.engine.util.ResourceUtil;
+import cool.kolya.api.util.ResourceUtil;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
@@ -56,9 +57,10 @@ public class ContextGraphic2D {
     }
 
     private void loadShadersAndUniforms(Cleaner cleaner) throws Exception {
-        Shader vertexShader = new Shader(ResourceUtil.readResource("cool/kolya/2d_vertex_shader.vs"),
-                Shader.Type.VERTEX, cleaner);
-        Shader fragmentShader = new Shader(ResourceUtil.readResource("cool/kolya/fragment_shader.fs"),
+        Shader vertexShader = new Shader(ResourceUtil.readResource(new ResourceSource(
+                "cool/kolya/2d_vertex_shader.vs")), Shader.Type.VERTEX, cleaner);
+        Shader fragmentShader = new Shader(ResourceUtil.readResource(new ResourceSource(
+                "cool/kolya/fragment_shader.fs")),
                 Shader.Type.FRAGMENT, cleaner);
 
         shaderProgram.addShader(vertexShader);

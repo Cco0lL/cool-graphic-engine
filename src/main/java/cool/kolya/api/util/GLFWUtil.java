@@ -1,4 +1,4 @@
-package cool.kolya.engine.util;
+package cool.kolya.api.util;
 
 import cool.kolya.engine.Engine;
 import cool.kolya.engine.data.CursorPosition;

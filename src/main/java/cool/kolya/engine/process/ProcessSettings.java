@@ -1,6 +1,6 @@
 package cool.kolya.engine.process;
 
-import cool.kolya.engine.util.GLFWUtil;
+import cool.kolya.api.util.GLFWUtil;
 import cool.kolya.engine.data.CursorPosition;
 import cool.kolya.engine.data.FrameBufferSize;
 import cool.kolya.engine.data.WindowPosition;

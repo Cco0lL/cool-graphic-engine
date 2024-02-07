@@ -1,4 +1,4 @@
-package cool.kolya.engine.util.func;
+package cool.kolya.api.func;
 
 @FunctionalInterface
 public interface ThrowableFunction<I, O> {
