@@ -2,7 +2,6 @@ package cool.kolya
 
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
-import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.nio.file.Path
 
@@ -13,7 +12,6 @@ abstract class CodeGenerator {
         const val EngineDirectPackage = "cool.kolya.engine.window.callback"
     }
 
-    private val Logger = LoggerFactory.getLogger(this::class.java)
 
     abstract fun generate()
 
@@ -24,7 +22,7 @@ abstract class CodeGenerator {
         try {
             jFile.writeTo(Path.of(path))
         } catch (ex: IOException) {
-            Logger.error("An error occurred on write source code to the file system")
+            ex.printStackTrace()
         }
     }
 }
