@@ -56,6 +56,7 @@ public class ElementContextGraphic2D {
 
     public void textureUnbind() {
         bindTexture.unbind();
+        shaderProgram.getUniform("texture").set(0);
         bindTexture = null;
     }
 

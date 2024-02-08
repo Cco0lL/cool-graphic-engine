@@ -5,7 +5,6 @@ import cool.kolya.api.util.GLFWUtil;
 import cool.kolya.api.util.ResourceUtil;
 import cool.kolya.engine.opengl.texture.Texture2D;
 import cool.kolya.engine.opengl.texture.Texture2DImpl;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL33;
 import org.lwjgl.system.MemoryStack;
 
@@ -25,6 +24,10 @@ public class Texture2DManager {
 
     public static void loadTexture(DataSource textureSource) {
         getContext().loadTexture(textureSource);
+    }
+
+    public static void addLoadedTexture(String name, Texture2D texture2D) {
+        getContext().addLoadedTexture(name, texture2D);
     }
 
     public static Texture2D getTexture(String name) {
@@ -47,6 +50,10 @@ public class Texture2DManager {
             return textureMap.get(name);
         }
 
+        public void addLoadedTexture(String name, Texture2D texture2D) {
+            textureMap.put(name, texture2D);
+        }
+
         /**
          * Supports png only
          */
@@ -55,7 +62,8 @@ public class Texture2DManager {
                 throw new IllegalStateException(textureSource.name() + " isn't png");
             }
             ResourceUtil.loadResourceAndCompute(textureSource, (is) -> {
-                try (MemoryStack memoryStack = MemoryStack.stackPush()) {
+                try (MemoryStack memoryStack = MemoryStack.create((1 << 20)  * 10)) {
+                    memoryStack.push();
                     BufferedImage bufImage = ImageIO.read(is);
                     ByteBuffer imageBuf = GLFWUtil.imageToRGBABuf(bufImage, memoryStack);
 
@@ -68,10 +76,10 @@ public class Texture2DManager {
                     GL33.glTexImage2D(GL33.GL_TEXTURE_2D, 0, GL33.GL_RGBA, bufImage.getWidth(),
                             bufImage.getHeight(), 0, GL33.GL_RGBA, GL33.GL_UNSIGNED_BYTE, imageBuf);
 
-                    GL33.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+                    GL33.glBindTexture(GL33.GL_TEXTURE_2D, 0);
 
                     String name = textureSource.name().replaceAll(".png", "");
-                    textureMap.put(name, new Texture2DImpl(texId, name));
+                    addLoadedTexture(name, new Texture2DImpl(texId, name));
                 }
             });
         }
