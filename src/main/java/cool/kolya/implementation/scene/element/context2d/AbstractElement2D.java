@@ -13,7 +13,7 @@ import org.joml.Vector4f;
 import org.lwjgl.opengl.GL33;
 
 public abstract class AbstractElement2D extends AbstractDrawableElement<DrawableProperties2D>
-        implements Element2D  {
+        implements Element2D {
 
     protected DrawableProperties2D properties = new DrawableProperties2D();
     protected ElementMouseState mouseState = new ElementMouseState();
@@ -52,6 +52,8 @@ public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable
         ElementGraphic2D.color(getProperties().getColor());
         ElementGraphic2D.elementMatrix(elementMatrix.getMatrix());
 
+        GL33.glEnable(GL33.GL_BLEND);
+        GL33.glBlendFunc(GL33.GL_SRC_ALPHA,GL33.GL_ONE_MINUS_SRC_ALPHA);
         GL33.glBindVertexArray(vaoId);
 
         String texture = getTexture();
@@ -66,7 +68,7 @@ public abstract class AbstractElement2D extends AbstractDrawableElement<Drawable
         }
 
         GL33.glBindVertexArray(0);
-
+        GL33.glDisable(GL33.GL_BLEND);
         ElementGraphic2D.disable();
     }
 

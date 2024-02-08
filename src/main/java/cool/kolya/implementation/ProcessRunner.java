@@ -41,6 +41,7 @@ public class ProcessRunner implements EventListener {
         Mouse.MouseState mouseState = Mouse.createContextMouseState();
 
         Texture2DManager.createContext();
+        FontManager.createContext();
         Graphic2D.createContext();
         ElementGraphic2D.createContext();
         ContextScene.create();

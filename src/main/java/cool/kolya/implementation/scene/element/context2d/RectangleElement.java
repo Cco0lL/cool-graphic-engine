@@ -6,22 +6,17 @@ import org.lwjgl.opengl.GL33;
 
 public class RectangleElement extends AbstractParent2D {
 
+    protected float[] texVertices = new float[] {
+            0f, 0f,
+            1f, 0f,
+            1f, 1f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f
+    };
+
     public RectangleElement() {
-        float[] texVertices = new float[] {
-                0f, 0f,
-                1f, 0f,
-                1f, 1f,
-                1f, 1f,
-                0f, 1f,
-                0f, 0f
-        };
-        GL33.glBindVertexArray(vaoId);
-        GL33.glBindBuffer(GL33.GL_ARRAY_BUFFER, texVBOId);
-        GL33.glBufferData(GL33.GL_ARRAY_BUFFER, texVertices, GL33.GL_STATIC_DRAW);
-        GL33.glVertexAttribPointer(1, 2, GL33.GL_FLOAT, false, 0, 0);
-        GL33.glBindBuffer(GL33.GL_ARRAY_BUFFER, 0);
-        GL33.glEnableVertexAttribArray(1);
-        GL33.glBindVertexArray(0);
+        updateTex();
     }
 
     @Override
@@ -60,5 +55,15 @@ public class RectangleElement extends AbstractParent2D {
                 0f,     height,
                 0f,     0f,
         };
+    }
+
+    protected void updateTex() {
+        GL33.glBindVertexArray(vaoId);
+        GL33.glBindBuffer(GL33.GL_ARRAY_BUFFER, texVBOId);
+        GL33.glBufferData(GL33.GL_ARRAY_BUFFER, texVertices, GL33.GL_STATIC_DRAW);
+        GL33.glVertexAttribPointer(1, 2, GL33.GL_FLOAT, false, 0, 0);
+        GL33.glBindBuffer(GL33.GL_ARRAY_BUFFER, 0);
+        GL33.glEnableVertexAttribArray(1);
+        GL33.glBindVertexArray(0);
     }
 }
