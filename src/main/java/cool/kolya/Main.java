@@ -72,6 +72,14 @@ public class Main {
                 properties.getOffset().add(0, scroll);
             });
             textElement.setInteractingModule(interactingModule);
+            textElement.addCallback(Callback.LifecycleType.BEFORE_UPDATE, () ->
+                    System.out.println("Before update"));
+            textElement.addCallback(Callback.LifecycleType.AFTER_UPDATE, () ->
+                    System.out.println("After update"));
+            textElement.addCallback(Callback.LifecycleType.BEFORE_RENDER, () ->
+                    System.out.println("Before render"));
+            textElement.addCallback(Callback.LifecycleType.AFTER_RENDER, () ->
+                    System.out.println("After render"));
             processor.getEventBus().registerListener(new EventListener() {
                 @EventHandler
                 void handleUpdate(UpdateEvent updateEvent) {

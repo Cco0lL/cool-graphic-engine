@@ -1,7 +1,5 @@
 package cool.kolya.implementation.scene.element.callback;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class Callback {
@@ -42,5 +40,12 @@ public class Callback {
         public static InteractType getReleaseByKeyNum(int keyNum) {
             return VALUES.get(RELEASE_OFFSET + keyNum);
         }
+    }
+
+    public enum LifecycleType {
+        BEFORE_UPDATE,
+        AFTER_UPDATE,
+        BEFORE_RENDER,
+        AFTER_RENDER;
     }
 }

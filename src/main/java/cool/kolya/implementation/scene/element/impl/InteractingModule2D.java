@@ -20,7 +20,7 @@ public class InteractingModule2D implements InteractingModule {
     protected boolean hovered;
     protected Vector2f mousePosition = new Vector2f();
     protected boolean[] mouseButtonStates = new boolean[3];
-    protected final Callbacks callbacks = new Callbacks();
+    protected final Callbacks<Callback.InteractType> callbacks = new Callbacks<>(Callback.InteractType.class);
     protected float scrollXOffset, scrollYOffset;
 
     public InteractingModule2D(Element element) {
@@ -84,7 +84,7 @@ public class InteractingModule2D implements InteractingModule {
 
         if (this.hovered != hovered) {
             this.hovered = hovered;
-            callbacks.getCallback(Callback.InteractType.HOVER).run();
+            callbacks.runCallback(Callback.InteractType.HOVER);
         }
     }
 
@@ -99,13 +99,13 @@ public class InteractingModule2D implements InteractingModule {
             int offset = pressed ? Callback.InteractType.PRESS_OFFSET :
                     Callback.InteractType.RELEASE_OFFSET;
             Callback.InteractType type = Callback.InteractType.VALUES.get(offset + button);
-            callbacks.getCallback(type).run();
+            callbacks.runCallback(type);
         }
     }
 
     protected void updateScrollState(ScrollEvent event) {
         scrollXOffset = (float) event.xOffset();
         scrollYOffset = (float) event.yOffset();
-        callbacks.getCallback(Callback.InteractType.SCROLL).run();
+        callbacks.runCallback(Callback.InteractType.SCROLL);
     }
 }

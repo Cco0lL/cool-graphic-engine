@@ -1,5 +1,7 @@
 package cool.kolya.implementation.scene.element;
 
+import cool.kolya.implementation.scene.element.callback.Callback;
+import cool.kolya.implementation.scene.element.callback.Callbacks;
 import cool.kolya.implementation.scene.element.matrix.TransformMatrix;
 import cool.kolya.implementation.scene.element.property.ElementTransformProperties;
 import org.jetbrains.annotations.ApiStatus;
@@ -18,6 +20,7 @@ public class ElementImpl implements Element {
     protected InteractingModule interactingModule = new InteractingModule.Empty();
     protected String texture;
     protected final Vector4f color = new Vector4f(1f);
+    protected final Callbacks<Callback.LifecycleType> callbacks = new Callbacks<>(Callback.LifecycleType.class);
 
     @Override
     public void updateAndRender() {
@@ -27,13 +30,17 @@ public class ElementImpl implements Element {
     }
 
     public void update() {
+        callbacks.runCallback(Callback.LifecycleType.BEFORE_UPDATE);
         getInteractingModule().updateInteractions();
         getTransformMatrix().update();
         getDrawingModule().update();
+        callbacks.runCallback(Callback.LifecycleType.AFTER_UPDATE);
     }
 
     public void render() {
+        callbacks.runCallback(Callback.LifecycleType.BEFORE_RENDER);
         getDrawingModule().draw();
+        callbacks.runCallback(Callback.LifecycleType.AFTER_RENDER);
     }
 
     @Override
@@ -110,5 +117,10 @@ public class ElementImpl implements Element {
     @Override
     public void setColor(Vector4f color) {
         this.color.set(color);
+    }
+
+    @Override
+    public void addCallback(Callback.LifecycleType type, Runnable callbackRunnable) {
+        callbacks.addCallback(type, callbackRunnable);
     }
 }

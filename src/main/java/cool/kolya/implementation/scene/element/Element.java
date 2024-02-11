@@ -1,5 +1,6 @@
 package cool.kolya.implementation.scene.element;
 
+import cool.kolya.implementation.scene.element.callback.Callback;
 import cool.kolya.implementation.scene.element.matrix.TransformMatrix;
 import cool.kolya.implementation.scene.element.property.TransformProperties;
 import org.jetbrains.annotations.ApiStatus;
@@ -39,4 +40,6 @@ public interface Element {
     Vector4f getColor();
 
     void setColor(Vector4f color);
+
+    void addCallback(Callback.LifecycleType type, Runnable callbackRunnable);
 }
