@@ -18,7 +18,7 @@ public class Shader {
         this.type = type;
         id = GL33.glCreateShader(type.getGlCode());
         if (id == GL33.GL_ZERO) {
-            throw new Exception("Error creating shader. Type: " + type.getGlCode());
+            throw new Exception("Error creating shader. InteractType: " + type.getGlCode());
         }
 
         glShaderSource(id, code);

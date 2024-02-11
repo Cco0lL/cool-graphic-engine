@@ -7,13 +7,13 @@ public class Callbacks {
 
     public static final Callback NOOP = new Callback();
 
-    protected final Map<Callback.Type, Callback> callbackMap = new EnumMap<>(Callback.Type.class);
+    protected final Map<Callback.InteractType, Callback> callbackMap = new EnumMap<>(Callback.InteractType.class);
 
-    public void addCallback(Callback.Type type, Runnable callbackRunnable) {
+    public void addCallback(Callback.InteractType type, Runnable callbackRunnable) {
         callbackMap.computeIfAbsent(type, k -> new Callback()).add(callbackRunnable);
     }
 
-    public Callback getCallback(Callback.Type type) {
+    public Callback getCallback(Callback.InteractType type) {
         return callbackMap.getOrDefault(type, NOOP);
     }
 }

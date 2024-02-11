@@ -19,24 +19,55 @@ public class InteractingModule2D implements InteractingModule {
     protected final Element element;
     protected boolean hovered;
     protected Vector2f mousePosition = new Vector2f();
-    protected boolean[] pressedKeys = new boolean[3];
+    protected boolean[] mouseButtonStates = new boolean[3];
     protected final Callbacks callbacks = new Callbacks();
+    protected float scrollXOffset, scrollYOffset;
 
     public InteractingModule2D(Element element) {
         this.element = element;
     }
 
     @Override
-    public void handleClickEvent(ClickEvent event) {}
+    public void updateInteractions() {
+        Scene scene = Scene.getContext();
+        updateMousePosition(scene);
+        updateHoverState();
+        if (hovered) {
+            Scene.LastEventData<ClickEvent> lastClickEventData = scene.getLastClickEventData();
+            if (!lastClickEventData.isOutdated()) {
+                updateMouseButtonStates(lastClickEventData.getLastEvent());
+            }
+            Scene.LastEventData<ScrollEvent> lastScrollEventData = scene.getLastScrollEventData();
+            if (!lastScrollEventData.isOutdated()) {
+                updateScrollState(lastScrollEventData.getLastEvent());
+            }
+        }
+    }
 
     @Override
-    public void handleScrollEvent(ScrollEvent event) {}
+    public void addCallback(Callback.InteractType type, Runnable callbackRunnable) {
+        callbacks.addCallback(type, callbackRunnable);
+    }
 
-    @Override
-    public void updateMouseState() {
+    public boolean isHovered() {
+        return hovered;
+    }
+
+    public float getScrollXOffset() {
+        return scrollXOffset;
+    }
+
+    public float getScrollYOffset() {
+        return scrollYOffset;
+    }
+
+    public Vector2f getMousePosition() {
+        return mousePosition;
+    }
+
+    protected void updateMousePosition(Scene scene) {
         CursorPosition cursorPosition = Mouse.getCursorPosition();
-        Vector2f interpretedPos = Scene.getContext().getCurrentContextElement()
-                .getWindowSettingsInterpreter()
+        Vector2f interpretedPos = scene.getCurrentContextElement().getWindowSettingsInterpreter()
                 .interpretWindowPos(new Vector2f((float) cursorPosition.xPos(),
                         (float) cursorPosition.yPos()));
 
@@ -44,23 +75,37 @@ public class InteractingModule2D implements InteractingModule {
         vec.mul(element.getTransformMatrix().getTransform().invert(new Matrix4f()));
 
         mousePosition.set(vec.x(), vec.y());
+    }
 
+    protected void updateHoverState() {
         PropertyVector size = element.getProperties().getSize();
         boolean hovered = mousePosition.x() >= 0 && mousePosition.x() <= size.x()
                 && mousePosition.y() >= 0 && mousePosition.y() <= size.y();
 
         if (this.hovered != hovered) {
             this.hovered = hovered;
-            callbacks.getCallback(Callback.Type.HOVER).run();
+            callbacks.getCallback(Callback.InteractType.HOVER).run();
         }
     }
 
-    @Override
-    public void addCallback(Callback.Type type, Runnable callbackRunnable) {
-        callbacks.addCallback(type, callbackRunnable);
+    protected void updateMouseButtonStates(ClickEvent event) {
+        int button = event.button();
+        if (button > 2) {
+            return;
+        }
+        boolean pressed = event.action() != 0;
+        if (pressed != mouseButtonStates[button]) {
+            mouseButtonStates[button] = pressed;
+            int offset = pressed ? Callback.InteractType.PRESS_OFFSET :
+                    Callback.InteractType.RELEASE_OFFSET;
+            Callback.InteractType type = Callback.InteractType.VALUES.get(offset + button);
+            callbacks.getCallback(type).run();
+        }
     }
 
-    public boolean isHovered() {
-        return hovered;
+    protected void updateScrollState(ScrollEvent event) {
+        scrollXOffset = (float) event.xOffset();
+        scrollYOffset = (float) event.yOffset();
+        callbacks.getCallback(Callback.InteractType.SCROLL).run();
     }
 }

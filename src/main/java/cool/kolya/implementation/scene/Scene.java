@@ -1,5 +1,8 @@
 package cool.kolya.implementation.scene;
 
+import cool.kolya.engine.event.ClickEvent;
+import cool.kolya.engine.event.Event;
+import cool.kolya.engine.event.ScrollEvent;
 import cool.kolya.implementation.scene.element.ContextElement;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -27,4 +30,31 @@ public interface Scene {
     ContextElement getContext(UUID uuid);
 
     Collection<ContextElement> getContexts();
+
+    LastEventData<ClickEvent> getLastClickEventData();
+
+    LastEventData<ScrollEvent> getLastScrollEventData();
+
+    class LastEventData<T extends Event> {
+
+        private T lastEvent;
+        private boolean outdated = true;
+
+        public boolean isOutdated() {
+            return outdated;
+        }
+
+        public T getLastEvent() {
+            return lastEvent;
+        }
+
+        void setOutdated(boolean outdated) {
+            this.outdated = outdated;
+        }
+
+        void setLastEvent(T lastEvent) {
+            this.lastEvent = lastEvent;
+            setOutdated(false);
+        }
+    }
 }

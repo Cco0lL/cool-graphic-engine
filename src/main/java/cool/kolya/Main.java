@@ -55,12 +55,21 @@ public class Main {
             properties.getOrigin().set(0.5f, 0.5f);
 
             InteractingModule2D interactingModule = new InteractingModule2D(textElement);
-            interactingModule.addCallback(Callback.Type.HOVER, () -> {
+            interactingModule.addCallback(Callback.InteractType.HOVER, () -> {
                 if (interactingModule.isHovered()) {
                     textElement.setTextColor(new Vector4f());
                 } else {
                     textElement.setTextColor(new Vector4f(0.2f, 1.0f, 0.7f, 1f));
                 }
+            });
+
+            interactingModule.addCallback(Callback.InteractType.LEFT_PRESS, () ->
+                    System.out.println("left pressed"));
+            interactingModule.addCallback(Callback.InteractType.LEFT_RELEASE, () ->
+                    System.out.println("left released"));
+            interactingModule.addCallback(Callback.InteractType.SCROLL, () -> {
+                float scroll = interactingModule.getScrollYOffset() * 10f;
+                properties.getOffset().add(0, scroll);
             });
             textElement.setInteractingModule(interactingModule);
             processor.getEventBus().registerListener(new EventListener() {

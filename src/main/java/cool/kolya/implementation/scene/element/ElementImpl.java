@@ -27,7 +27,7 @@ public class ElementImpl implements Element {
     }
 
     public void update() {
-        getInteractingModule().updateMouseState();
+        getInteractingModule().updateInteractions();
         getTransformMatrix().update();
         getDrawingModule().update();
     }
