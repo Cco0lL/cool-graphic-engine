@@ -12,7 +12,7 @@ import cool.kolya.implementation.graphic.context2d.Graphic2D;
 import cool.kolya.implementation.graphic.element2d.ElementGraphic2D;
 import cool.kolya.implementation.scene.ContextScene;
 import cool.kolya.implementation.scene.Scene;
-import cool.kolya.implementation.scene.element.general.ContextElement;
+import cool.kolya.implementation.scene.element.ContextElement;
 import org.lwjgl.opengl.GL33;
 
 public class ProcessRunner implements EventListener {
@@ -63,17 +63,13 @@ public class ProcessRunner implements EventListener {
                 int newHeight = event.height();
                 GL33.glViewport(0, 0, newWidth, newHeight);
                 displayState.setFrameBufferSize(new FrameBufferSize(newWidth, newHeight));
-
-                for (ContextElement<?> context : Scene.getContext().getContexts()) {
-                    context.getMatrix().update();
-                }
             }
 
             @EventHandler
             void updateWindowSize(WindowResizeEvent event) {
                 displayState.setWindowSize(new WindowSize(event.width(), event.height()));
-                for (ContextElement<?> context : Scene.getContext().getContexts()) {
-                    context.getMatrix().update();
+                for (ContextElement context : Scene.getContext().getContexts()) {
+                    context.updateState();
                 }
             }
 

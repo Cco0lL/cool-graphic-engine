@@ -9,7 +9,6 @@ allprojects {
     version = "1.0"
 
     //https://www.lwjgl.org/customize gradle dependencies generator
-
     val lwjglVersion = "3.3.2"
     val jomlVersion = "1.10.5"
     val lwjglNatives = "natives-windows"

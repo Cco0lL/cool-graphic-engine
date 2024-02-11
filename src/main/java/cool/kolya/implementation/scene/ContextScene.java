@@ -1,7 +1,6 @@
 package cool.kolya.implementation.scene;
 
-import cool.kolya.implementation.scene.element.general.ContextElement;
-import cool.kolya.implementation.scene.element.general.DrawableProperties;
+import cool.kolya.implementation.scene.element.ContextElement;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -23,21 +22,34 @@ public class ContextScene {
 
     public static final class SceneImpl implements Scene {
 
-        final Map<UUID, ContextElement<?>> contexts = new ConcurrentHashMap<>();
-        final Collection<ContextElement<?>> unmodifiableContexts =
+        ContextElement currentContextElement;
+        final Map<UUID, ContextElement> contexts = new ConcurrentHashMap<>();
+        final Collection<ContextElement> unmodifiableContexts =
                 Collections.unmodifiableCollection(contexts.values());
 
         @Override
+        public ContextElement getCurrentContextElement() {
+            return currentContextElement;
+        }
+
+        @Override
+        public void setCurrentContextElement(ContextElement contextElement) {
+            currentContextElement = contextElement;
+        }
+
+        @Override
         public void updateAndRenderContexts() {
-            for (ContextElement<?> context : contexts.values()) {
+            for (ContextElement context : contexts.values()) {
+                setCurrentContextElement(context);
                 context.updateAndRender();
+                context.getWindowSettingsInterpreter().setDirty(false);
             }
         }
 
         @Override
-        public void addContext(ContextElement<?> context) {
-            context.getMatrix().update();
+        public void addContext(ContextElement context) {
             contexts.put(context.getId(), context);
+            context.updateState();
         }
 
         @Override
@@ -46,13 +58,12 @@ public class ContextScene {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
-        public <P extends DrawableProperties> ContextElement<P> getContext(UUID uuid, Class<P> cClass) {
-            return (ContextElement<P>) contexts.get(uuid);
+        public ContextElement getContext(UUID uuid) {
+            return contexts.get(uuid);
         }
 
         @Override
-        public Collection<ContextElement<?>> getContexts() {
+        public Collection<ContextElement> getContexts() {
             return unmodifiableContexts;
         }
     }
