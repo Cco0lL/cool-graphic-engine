@@ -1,11 +1,7 @@
 package cool.kolya.implementation.scene.element.property;
 
 
-import java.util.UUID;
-
 public interface TransformProperties {
-
-    UUID getElementId();
 
     PropertyVector getSize();
 

@@ -65,6 +65,10 @@ public class EngineProcess {
         return settings;
     }
 
+    public int currentTick() {
+        return processLoop.currentTick();
+    }
+
     public void setProcessLoop(ProcessLoop processLoop) {
         if (processLoop != null && processLoop.isRunning()) {
             throw new IllegalStateException("Attempt to change process loop since it's already started");

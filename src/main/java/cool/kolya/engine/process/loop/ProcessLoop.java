@@ -11,5 +11,7 @@ public interface ProcessLoop {
     boolean keepRunning();
 
     boolean isRunning();
+
+    int currentTick();
 }
 

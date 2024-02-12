@@ -8,7 +8,7 @@ import org.joml.Vector4f;
 public class ElementPropertyVector implements PropertyVector {
 
     protected float x, y, z;
-    protected final ElementTransformProperties properties;
+    protected final TransformPropertiesImpl properties;
     protected final Callback changeCallback = new Callback();
     protected final Property property;
 
@@ -16,11 +16,11 @@ public class ElementPropertyVector implements PropertyVector {
         this(other.x(), other.y(), other.z(), other.properties, property);
     }
 
-    public ElementPropertyVector(float d, ElementTransformProperties properties, Property property) {
+    public ElementPropertyVector(float d, TransformPropertiesImpl properties, Property property) {
         this(d, d, d, properties, property);
     }
 
-    public ElementPropertyVector(float x, float y, float z, ElementTransformProperties properties,
+    public ElementPropertyVector(float x, float y, float z, TransformPropertiesImpl properties,
                                  Property property) {
         this.x = x;
         this.y = y;

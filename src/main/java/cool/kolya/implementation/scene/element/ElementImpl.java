@@ -3,7 +3,8 @@ package cool.kolya.implementation.scene.element;
 import cool.kolya.implementation.scene.element.callback.Callback;
 import cool.kolya.implementation.scene.element.callback.Callbacks;
 import cool.kolya.implementation.scene.element.matrix.TransformMatrix;
-import cool.kolya.implementation.scene.element.property.ElementTransformProperties;
+import cool.kolya.implementation.scene.element.property.TransformProperties;
+import cool.kolya.implementation.scene.element.property.TransformPropertiesImpl;
 import org.jetbrains.annotations.ApiStatus;
 import org.joml.Vector4f;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 public class ElementImpl implements Element {
 
     protected final UUID id = UUID.randomUUID();
-    protected final ElementTransformProperties properties = new ElementTransformProperties(id);
+    protected final TransformProperties properties = new TransformPropertiesImpl();
     protected Parent parent;
     protected TransformMatrix transformMatrix = new TransformMatrix.ParentMatrixTransmitter(this);
     protected DrawingModule drawingModule = new DrawingModule.Empty(this);
@@ -49,7 +50,7 @@ public class ElementImpl implements Element {
     }
 
     @Override
-    public ElementTransformProperties getProperties() {
+    public TransformProperties getProperties() {
         return properties;
     }
 

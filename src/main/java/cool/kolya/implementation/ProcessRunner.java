@@ -1,12 +1,12 @@
 package cool.kolya.implementation;
 
 import cool.kolya.engine.Engine;
-import cool.kolya.engine.data.CursorPosition;
-import cool.kolya.engine.data.FrameBufferSize;
-import cool.kolya.engine.data.WindowSize;
-import cool.kolya.engine.event.*;
+import cool.kolya.engine.event.EventHandler;
+import cool.kolya.engine.event.EventListener;
+import cool.kolya.engine.event.ProcessStartEvent;
 import cool.kolya.engine.event.bus.EventBus;
 import cool.kolya.engine.process.EngineProcess;
+import cool.kolya.implementation.animation.AnimationProcessor;
 import cool.kolya.implementation.component.ComponentsUpdateListener;
 import cool.kolya.implementation.component.Display;
 import cool.kolya.implementation.component.Mouse;
@@ -15,8 +15,6 @@ import cool.kolya.implementation.graphic.element2d.ElementGraphic2D;
 import cool.kolya.implementation.scene.ContextScene;
 import cool.kolya.implementation.scene.Scene;
 import cool.kolya.implementation.scene.SceneListener;
-import cool.kolya.implementation.scene.element.ContextElement;
-import org.lwjgl.opengl.GL33;
 
 public class ProcessRunner implements EventListener {
 
@@ -47,6 +45,7 @@ public class ProcessRunner implements EventListener {
         Graphic2D.createContext();
         ElementGraphic2D.createContext();
         ContextScene.create();
+        AnimationProcessor.createContext();
 
         EventBus bus = process.getEventBus();
         bus.registerListener(new ComponentsUpdateListener(displayState, mouseState));

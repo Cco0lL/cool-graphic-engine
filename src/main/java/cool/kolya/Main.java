@@ -11,6 +11,8 @@ import cool.kolya.engine.process.ProcessSettings;
 import cool.kolya.implementation.FontManager;
 import cool.kolya.implementation.ProcessRunner;
 import cool.kolya.implementation.Texture2DManager;
+import cool.kolya.implementation.animation.Animation;
+import cool.kolya.implementation.animation.Easings;
 import cool.kolya.implementation.scene.Scene;
 import cool.kolya.implementation.scene.element.ContextElement;
 import cool.kolya.implementation.scene.element.Element;
@@ -89,8 +91,17 @@ public class Main {
             });
             textElement.setInteractingModule(interactingModule);
             processor.getEventBus().registerListener(new EventListener() {
+
+                boolean animate = true;
                 @EventHandler
                 void handleUpdate(UpdateEvent updateEvent) {
+                    if (animate) {
+                        Animation.animate(textElement, Easings.QUAD_OUT, 60, Animation.ChangeType.ADD,
+                                cp -> {
+                                    cp.getOffset().set(-300, -150);
+                                });
+                        animate = false;
+                    }
                     if (interactingModule.isHovered()) {
                         return;
                     }

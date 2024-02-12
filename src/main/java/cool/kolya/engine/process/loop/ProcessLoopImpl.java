@@ -22,6 +22,7 @@ public class ProcessLoopImpl implements ProcessLoop {
 
     private long lastFrameStartTime;
     private long timeFromLastUpdate;
+    private int currentTick;
     protected boolean running;
 
     public ProcessLoopImpl(EngineProcess process) {
@@ -65,7 +66,7 @@ public class ProcessLoopImpl implements ProcessLoop {
 
         timeFromLastUpdate += prevFrameTimeElapsed;
         for (; timeFromLastUpdate >= tickTime; timeFromLastUpdate -= tickTime) {
-            eventBus.dispatch(new UpdateEvent());
+            eventBus.dispatch(new UpdateEvent(++currentTick));
         }
 
         GL33.glClear(GL33.GL_COLOR_BUFFER_BIT | GL33.GL_DEPTH_BUFFER_BIT);
@@ -83,5 +84,10 @@ public class ProcessLoopImpl implements ProcessLoop {
     @Override
     public boolean isRunning() {
         return running;
+    }
+
+    @Override
+    public int currentTick() {
+        return currentTick;
     }
 }

@@ -1,11 +1,9 @@
 package cool.kolya.implementation.scene.element.property;
 
 import java.util.Arrays;
-import java.util.UUID;
 
-public class ElementTransformProperties implements TransformProperties {
+public class TransformPropertiesImpl implements TransformProperties {
 
-    private final UUID elementId;
     private final PropertyVector[] propertyVectors = new PropertyVector[Property.LENGTH];
     private final boolean[] dirtyMarks = new boolean[Property.LENGTH];
     private final PropertyVector size = new ElementPropertyVector(0f, this, Property.SIZE);
@@ -15,14 +13,8 @@ public class ElementTransformProperties implements TransformProperties {
     private final PropertyVector align = new ElementPropertyVector(0f, this, Property.ALIGN);
     private final PropertyVector origin = new ElementPropertyVector(0f, this, Property.ORIGIN);
 
-    public ElementTransformProperties(UUID elementId) {
-        this.elementId = elementId;
+    public TransformPropertiesImpl() {
         size.getChangeCallback().add(() -> setPropertyDirty(Property.ORIGIN, true));
-    }
-
-    @Override
-    public UUID getElementId() {
-        return elementId;
     }
 
     @Override
