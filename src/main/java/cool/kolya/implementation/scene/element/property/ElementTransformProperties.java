@@ -6,18 +6,18 @@ import java.util.UUID;
 public class ElementTransformProperties implements TransformProperties {
 
     private final UUID elementId;
-    private final PropertyVector[] propertyVectors = new PropertyVector[Properties.LENGTH];
-    private final boolean[] dirtyMarks = new boolean[Properties.LENGTH];
-    private final PropertyVector size = new ElementPropertyVector(0f, this, Properties.SIZE);
-    private final PropertyVector offset = new ElementPropertyVector(0f, this, Properties.OFFSET);
-    private final PropertyVector scale = new ElementPropertyVector(1f, this, Properties.SCALE);
-    private final PropertyVector xyzRotation = new ElementPropertyVector(0f, this, Properties.ROTATION);
-    private final PropertyVector align = new ElementPropertyVector(0f, this, Properties.ALIGN);
-    private final PropertyVector origin = new ElementPropertyVector(0f, this, Properties.ORIGIN);
+    private final PropertyVector[] propertyVectors = new PropertyVector[Property.LENGTH];
+    private final boolean[] dirtyMarks = new boolean[Property.LENGTH];
+    private final PropertyVector size = new ElementPropertyVector(0f, this, Property.SIZE);
+    private final PropertyVector offset = new ElementPropertyVector(0f, this, Property.OFFSET);
+    private final PropertyVector scale = new ElementPropertyVector(1f, this, Property.SCALE);
+    private final PropertyVector xyzRotation = new ElementPropertyVector(0f, this, Property.ROTATION);
+    private final PropertyVector align = new ElementPropertyVector(0f, this, Property.ALIGN);
+    private final PropertyVector origin = new ElementPropertyVector(0f, this, Property.ORIGIN);
 
     public ElementTransformProperties(UUID elementId) {
         this.elementId = elementId;
-        size.getChangeCallback().add(() -> setPropertyDirty(Properties.ORIGIN, true));
+        size.getChangeCallback().add(() -> setPropertyDirty(Property.ORIGIN, true));
     }
 
     @Override
@@ -56,18 +56,18 @@ public class ElementTransformProperties implements TransformProperties {
     }
 
     @Override
-    public PropertyVector getProperty(int propertyOffset) {
-        return propertyVectors[propertyOffset];
+    public PropertyVector getProperty(Property property) {
+        return propertyVectors[property.ordinal()];
     }
 
     @Override
-    public boolean isPropertyDirty(int propertyOffset) {
-        return dirtyMarks[propertyOffset];
+    public boolean isPropertyDirty(Property property) {
+        return dirtyMarks[property.ordinal()];
     }
 
     @Override
-    public void setPropertyDirty(int propertyOffset, boolean dirty) {
-        dirtyMarks[propertyOffset] = dirty;
+    public void setPropertyDirty(Property property, boolean dirty) {
+        dirtyMarks[property.ordinal()] = dirty;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ElementTransformProperties implements TransformProperties {
         Arrays.fill(dirtyMarks, dirty);
     }
 
-    protected void setProperty(int propertyOffset, PropertyVector property) {
-        propertyVectors[propertyOffset] = property;
+    protected void setProperty(Property property, PropertyVector propertyVec) {
+        propertyVectors[property.ordinal()] = propertyVec;
     }
 }

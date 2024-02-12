@@ -24,6 +24,10 @@ public class ElementGraphic2D {
         getContext().color(color);
     }
 
+    public static void windowMatrix(Matrix4f windowMatrix) {
+        getContext().windowMatrix(windowMatrix);
+    }
+
     public static void elementMatrix(Matrix4f elementMatrix) {
         getContext().elementMatrix(elementMatrix);
     }

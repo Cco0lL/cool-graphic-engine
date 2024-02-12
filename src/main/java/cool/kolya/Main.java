@@ -18,6 +18,7 @@ import cool.kolya.implementation.scene.element.Elements;
 import cool.kolya.implementation.scene.element.callback.Callback;
 import cool.kolya.implementation.scene.element.impl.InteractingModule2D;
 import cool.kolya.implementation.scene.element.impl.TextElement;
+import cool.kolya.implementation.scene.element.property.PropertyVector;
 import cool.kolya.implementation.scene.element.property.TransformProperties;
 import org.joml.Vector4f;
 
@@ -43,6 +44,21 @@ public class Main {
 
             ContextElement context = Elements.newContext2D();
             context.getColor().set(0f, 0f, 0f, 1f);
+            TransformProperties contextProperties = context.getProperties();
+            contextProperties.getOrigin().set(0.5f, 0.5f);
+
+            PropertyVector size = contextProperties.getSize();
+            size.getChangeCallback().add(() -> {
+                contextProperties.getOffset().set(size.x() / 2, size.y() / 2);
+            });
+
+            InteractingModule2D ctxInteractModule = new InteractingModule2D(context);
+            ctxInteractModule.addCallback(Callback.InteractType.SCROLL, () -> {
+                float scale = 0.05f * ctxInteractModule.getScrollYOffset();
+                contextProperties.getScale().add(scale, scale);
+            });
+            context.setInteractingModule(ctxInteractModule);
+
             Scene scene = Scene.getContext();
             scene.addContext(context);
 
@@ -72,14 +88,6 @@ public class Main {
                 properties.getOffset().add(0, scroll);
             });
             textElement.setInteractingModule(interactingModule);
-            textElement.addCallback(Callback.LifecycleType.BEFORE_UPDATE, () ->
-                    System.out.println("Before update"));
-            textElement.addCallback(Callback.LifecycleType.AFTER_UPDATE, () ->
-                    System.out.println("After update"));
-            textElement.addCallback(Callback.LifecycleType.BEFORE_RENDER, () ->
-                    System.out.println("Before render"));
-            textElement.addCallback(Callback.LifecycleType.AFTER_RENDER, () ->
-                    System.out.println("After render"));
             processor.getEventBus().registerListener(new EventListener() {
                 @EventHandler
                 void handleUpdate(UpdateEvent updateEvent) {

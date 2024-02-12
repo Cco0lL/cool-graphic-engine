@@ -2,7 +2,7 @@ package cool.kolya.implementation.scene.element.impl;
 
 import cool.kolya.implementation.scene.Scene;
 import cool.kolya.implementation.scene.element.WindowSettingsInterpreter;
-import cool.kolya.implementation.scene.element.property.Properties;
+import cool.kolya.implementation.scene.element.property.Property;
 import cool.kolya.implementation.scene.element.property.PropertyVector;
 import org.lwjgl.opengl.GL33;
 
@@ -31,7 +31,7 @@ public class RectangleDrawingModule extends AbstractDrawingModule2D {
 
     @Override
     protected boolean isNeedUpdate() {
-        return boundedElement.getProperties().isPropertyDirty(Properties.SIZE);
+        return boundedElement.getProperties().isPropertyDirty(Property.SIZE);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RectangleDrawingModule extends AbstractDrawingModule2D {
 
         GL33.glBindVertexArray(0);
         GL33.glBindBuffer(GL33.GL_ARRAY_BUFFER, 0);
-        boundedElement.getProperties().setPropertyDirty(Properties.SIZE, false);
+        boundedElement.getProperties().setPropertyDirty(Property.SIZE, false);
 
     }
 

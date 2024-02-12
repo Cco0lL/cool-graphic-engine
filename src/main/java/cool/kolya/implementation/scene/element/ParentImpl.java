@@ -1,6 +1,6 @@
 package cool.kolya.implementation.scene.element;
 
-import cool.kolya.implementation.scene.element.property.Properties;
+import cool.kolya.implementation.scene.element.property.Property;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class ParentImpl extends ElementImpl implements Parent {
     public ParentImpl() {
         properties.getSize().getChangeCallback().add(() -> {
             for (Element child : getChildren()) {
-                child.getProperties().setPropertyDirty(Properties.ALIGN, true);
+                child.getProperties().setPropertyDirty(Property.ALIGN, true);
             }
         });
     }

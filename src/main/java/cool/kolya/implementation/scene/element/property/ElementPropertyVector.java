@@ -10,23 +10,24 @@ public class ElementPropertyVector implements PropertyVector {
     protected float x, y, z;
     protected final ElementTransformProperties properties;
     protected final Callback changeCallback = new Callback();
-    protected final int propertyOffset;
+    protected final Property property;
 
-    public ElementPropertyVector(ElementPropertyVector other, int propertyOffset) {
-        this(other.x(), other.y(), other.z(), other.properties, propertyOffset);
+    public ElementPropertyVector(ElementPropertyVector other, Property property) {
+        this(other.x(), other.y(), other.z(), other.properties, property);
     }
 
-    public ElementPropertyVector(float d, ElementTransformProperties properties, int propertyOffset) {
-        this(d, d, d, properties, propertyOffset);
+    public ElementPropertyVector(float d, ElementTransformProperties properties, Property property) {
+        this(d, d, d, properties, property);
     }
 
-    public ElementPropertyVector(float x, float y, float z, ElementTransformProperties properties, int propertyOffset) {
+    public ElementPropertyVector(float x, float y, float z, ElementTransformProperties properties,
+                                 Property property) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.properties = properties;
-        this.propertyOffset = propertyOffset;
-        properties.setProperty(propertyOffset, this);
+        this.property = property;
+        properties.setProperty(property, this);
     }
 
     @Override
@@ -178,7 +179,7 @@ public class ElementPropertyVector implements PropertyVector {
     }
 
     protected void markDirty() {
-        properties.setPropertyDirty(propertyOffset, true);
+        properties.setPropertyDirty(property, true);
         changeCallback.run();
     }
 }

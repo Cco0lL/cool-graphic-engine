@@ -39,6 +39,10 @@ public class ElementContextGraphic2D {
         }
     }
 
+    public void windowMatrix(Matrix4f windowMatrix) {
+        shaderProgram.getUniform("window").set(windowMatrix);
+    }
+
     public void elementMatrix(Matrix4f elementMatrix) {
         shaderProgram.getUniform("element").set(elementMatrix);
     }
@@ -75,6 +79,7 @@ public class ElementContextGraphic2D {
 
         shaderProgram.createUniform("incolor", Vector4fUniform::new);
         shaderProgram.createUniform("element", Matrix4fUniform::new);
+        shaderProgram.createUniform("window", Matrix4fUniform::new);
         shaderProgram.createUniform("texture", IntUniform::new);
         shaderProgram.createUniform("sampler", IntUniform::new);
     }

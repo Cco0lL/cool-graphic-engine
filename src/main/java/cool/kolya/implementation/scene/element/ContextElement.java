@@ -6,7 +6,7 @@ public class ContextElement extends ParentImpl {
 
     public void updateState() {
         windowSettingsInterpreter.update();
-        transformMatrix.setDirty(true);
+//        transformMatrix.setDirty(true);
     }
 
     public WindowSettingsInterpreter getWindowSettingsInterpreter() {

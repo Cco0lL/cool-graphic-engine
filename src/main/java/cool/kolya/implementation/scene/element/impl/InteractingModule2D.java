@@ -72,7 +72,7 @@ public class InteractingModule2D implements InteractingModule {
                         (float) cursorPosition.yPos()));
 
         Vector4f vec = new Vector4f(interpretedPos, 0 ,1);
-        vec.mul(element.getTransformMatrix().getTransform().invert(new Matrix4f()));
+        vec.mul(element.getTransformMatrix().get().invert(new Matrix4f()));
 
         mousePosition.set(vec.x(), vec.y());
     }
@@ -85,6 +85,14 @@ public class InteractingModule2D implements InteractingModule {
         if (this.hovered != hovered) {
             this.hovered = hovered;
             callbacks.runCallback(Callback.InteractType.HOVER);
+            if (!hovered) {
+                for (int i = 0; i < mouseButtonStates.length; i++) {
+                    if (mouseButtonStates[i]) {
+                        mouseButtonStates[i] = false;
+                        callbacks.runCallback(Callback.InteractType.getReleaseByKeyNum(i));
+                    }
+                }
+            }
         }
     }
 

@@ -8,14 +8,14 @@ public class MergePropertyVector extends ElementPropertyVector {
     private LinkablePropertyVector linkVec;
     private final FloatBiFunction mergeFunc;
 
-    public MergePropertyVector(float d, ElementTransformProperties properties, int propertyOffset,
+    public MergePropertyVector(float d, ElementTransformProperties properties, Property property,
                                MergeStrategy mergeStrategy) {
-        this(d, d, d, properties, propertyOffset, mergeStrategy);
+        this(d, d, d, properties, property, mergeStrategy);
     }
 
     public MergePropertyVector(float x, float y, float z, ElementTransformProperties properties,
-                               int propertyOffset, MergeStrategy mergeStrategy) {
-        super(x, y, z, properties, propertyOffset);
+                               Property property, MergeStrategy mergeStrategy) {
+        super(x, y, z, properties, property);
         actualX = x;
         actualY = y;
         actualZ = z;

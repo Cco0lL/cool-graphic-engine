@@ -5,6 +5,9 @@ import cool.kolya.implementation.scene.element.impl.Context2D;
 import cool.kolya.implementation.scene.element.impl.RectangleDrawingModule;
 import cool.kolya.implementation.scene.element.impl.TextElement;
 import cool.kolya.implementation.scene.element.matrix.ElementTransformMatrix;
+import cool.kolya.implementation.scene.element.matrix.TransformMatrix;
+import cool.kolya.implementation.scene.element.matrix.TransformMatrixImpl;
+import cool.kolya.implementation.scene.element.property.Property;
 
 public class Elements {
 
@@ -16,11 +19,18 @@ public class Elements {
 
     public static ContextElement newContext2D() {
         Context2D context = new Context2D();
-        context.setTransformMatrix(new Context2D.Context2DTransformMatrix(context));
+
+        TransformMatrix matrix = new TransformMatrixImpl(context);
+        matrix.addTransformProperty(Property.ORIGIN);
+        matrix.addTransformProperty(Property.SCALE);
+        matrix.addTransformProperty(Property.OFFSET);
+        context.setTransformMatrix(matrix);
+
         context.setWindowSettingsInterpreter(new WindowSettingsInterpreter.Default());
         DrawingModule drawingModule = new RectangleDrawingModule();
         drawingModule.setBoundedElement(context);
         context.setDrawingModule(drawingModule);
+
         return context;
     }
 

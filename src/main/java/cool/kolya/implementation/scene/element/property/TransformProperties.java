@@ -19,11 +19,11 @@ public interface TransformProperties {
 
     PropertyVector getOrigin();
 
-    PropertyVector getProperty(int propertyOffset);
+    PropertyVector getProperty(Property property);
 
-    boolean isPropertyDirty(int propertyOffset);
+    boolean isPropertyDirty(Property property);
 
-    void setPropertyDirty(int propertyOffset, boolean dirty);
+    void setPropertyDirty(Property property, boolean dirty);
 
     void setDirtyAll(boolean dirty);
 }

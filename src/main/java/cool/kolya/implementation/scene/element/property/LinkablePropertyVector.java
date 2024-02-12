@@ -8,17 +8,17 @@ public class LinkablePropertyVector extends ElementPropertyVector {
 
     private final List<MergePropertyVector> linkedVectors = new ArrayList<>();
 
-    public LinkablePropertyVector(ElementPropertyVector other, int propertyOffset) {
-        this(other.x(), other.y(), other.z(), other.properties, propertyOffset);
+    public LinkablePropertyVector(ElementPropertyVector other, Property property) {
+        this(other.x(), other.y(), other.z(), other.properties, property);
     }
 
-    public LinkablePropertyVector(float d, ElementTransformProperties properties, int propertyOffset) {
-        this(d, d, d, properties, propertyOffset);
+    public LinkablePropertyVector(float d, ElementTransformProperties properties, Property property) {
+        this(d, d, d, properties, property);
     }
 
     public LinkablePropertyVector(float x, float y, float z, ElementTransformProperties properties,
-                                  int propertyOffset) {
-        super(x, y, z, properties, propertyOffset);
+                                  Property property) {
+        super(x, y, z, properties, property);
         changeCallback.add(() -> {
             for (MergePropertyVector linkedVec : linkedVectors) {
                 linkedVec.mergeXYZ();

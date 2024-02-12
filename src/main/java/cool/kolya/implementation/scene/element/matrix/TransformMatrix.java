@@ -1,6 +1,7 @@
 package cool.kolya.implementation.scene.element.matrix;
 
 import cool.kolya.implementation.scene.element.Element;
+import cool.kolya.implementation.scene.element.property.Property;
 import org.joml.Matrix4f;
 
 public interface TransformMatrix {
@@ -9,13 +10,13 @@ public interface TransformMatrix {
 
     Matrix4f get();
 
-    Matrix4f getTransform();
-
     void update();
 
     boolean isDirty();
 
     void setDirty(boolean dirty);
+
+    void addTransformProperty(Property property);
 
     class ParentMatrixTransmitter implements TransformMatrix {
 
@@ -38,11 +39,6 @@ public interface TransformMatrix {
         }
 
         @Override
-        public Matrix4f getTransform() {
-            return new Matrix4f();
-        }
-
-        @Override
         public void update() {
             TransformMatrix parentMatrix = element.getParent().getTransformMatrix();
             if (parentMatrix.isDirty()) {
@@ -60,5 +56,8 @@ public interface TransformMatrix {
         public void setDirty(boolean dirty) {
             this.dirty = dirty;
         }
+
+        @Override
+        public void addTransformProperty(Property property) {}
     }
 }
