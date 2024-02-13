@@ -6,7 +6,6 @@ import cool.kolya.engine.event.EventListener;
 import cool.kolya.engine.event.ProcessStartEvent;
 import cool.kolya.engine.event.bus.EventBus;
 import cool.kolya.engine.process.EngineProcess;
-import cool.kolya.implementation.animation.AnimationProcessor;
 import cool.kolya.implementation.component.ComponentsUpdateListener;
 import cool.kolya.implementation.component.Display;
 import cool.kolya.implementation.component.Mouse;
@@ -46,7 +45,6 @@ public class ProcessRunner implements EventListener {
         Graphic2D.createContext();
         ElementGraphic2D.createContext();
         ContextScene.create();
-        AnimationProcessor.createContext();
         TaskScheduler.createContext();
 
         EventBus bus = process.getEventBus();
