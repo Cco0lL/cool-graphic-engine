@@ -22,6 +22,7 @@ import cool.kolya.implementation.scene.element.impl.InteractingModule2D;
 import cool.kolya.implementation.scene.element.impl.TextElement;
 import cool.kolya.implementation.scene.element.property.PropertyVector;
 import cool.kolya.implementation.scene.element.property.TransformProperties;
+import cool.kolya.implementation.scheduler.TaskScheduler;
 import org.joml.Vector4f;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -90,18 +91,22 @@ public class Main {
                 properties.getOffset().add(0, scroll);
             });
             textElement.setInteractingModule(interactingModule);
+
+            TaskScheduler scheduler = TaskScheduler.getContext();
+            final int taskId = scheduler.addRepeatableTask(60, 60, () -> {
+                Animation.animate(textElement, Easings.QUAD_OUT, 60,
+                        Animation.ChangeType.ADD, cp -> {
+                            cp.getOffset().set(-50, -30);
+                        });
+            });
+            scheduler.addTaskWithDelay(240, () -> {
+                scheduler.stopTask(taskId);
+            });
+
             processor.getEventBus().registerListener(new EventListener() {
 
-                boolean animate = true;
                 @EventHandler
                 void handleUpdate(UpdateEvent updateEvent) {
-                    if (animate) {
-                        Animation.animate(textElement, Easings.QUAD_OUT, 60, Animation.ChangeType.ADD,
-                                cp -> {
-                                    cp.getOffset().set(-300, -150);
-                                });
-                        animate = false;
-                    }
                     if (interactingModule.isHovered()) {
                         return;
                     }

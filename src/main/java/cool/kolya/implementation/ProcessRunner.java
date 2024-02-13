@@ -15,6 +15,7 @@ import cool.kolya.implementation.graphic.element2d.ElementGraphic2D;
 import cool.kolya.implementation.scene.ContextScene;
 import cool.kolya.implementation.scene.Scene;
 import cool.kolya.implementation.scene.SceneListener;
+import cool.kolya.implementation.scheduler.TaskScheduler;
 
 public class ProcessRunner implements EventListener {
 
@@ -46,6 +47,7 @@ public class ProcessRunner implements EventListener {
         ElementGraphic2D.createContext();
         ContextScene.create();
         AnimationProcessor.createContext();
+        TaskScheduler.createContext();
 
         EventBus bus = process.getEventBus();
         bus.registerListener(new ComponentsUpdateListener(displayState, mouseState));
