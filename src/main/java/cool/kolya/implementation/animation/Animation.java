@@ -3,17 +3,18 @@ package cool.kolya.implementation.animation;
 import cool.kolya.implementation.scene.element.Element;
 import cool.kolya.implementation.scene.element.property.TransformProperties;
 import cool.kolya.implementation.scene.element.property.TransformPropertiesImpl;
+import cool.kolya.implementation.scheduler.TaskScheduler;
 
 import java.util.function.Consumer;
 
 public interface Animation {
 
-    static void animate(Element element, Easing easing, int duration,
+    static int animate(Element element, Easing easing, int duration,
                         ChangeType type, Consumer<TransformProperties> animationChanges) {
         TransformProperties properties = new TransformPropertiesImpl();
         animationChanges.accept(properties);
         Animation animation = new AnimationImpl(element, easing, duration, type, properties);
-        AnimationProcessor.getContext().processAnimation(animation);
+        return TaskScheduler.getContext().addTask(new AnimationTask(animation));
     }
 
     void update(int currentTick);

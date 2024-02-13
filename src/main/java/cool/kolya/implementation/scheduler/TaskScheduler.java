@@ -11,7 +11,7 @@ import java.util.*;
 public class TaskScheduler {
 
     public static final ThreadLocal<TaskScheduler> SCHEDULER_THREAD_LOCAL = new ThreadLocal<>();
-    private final List<ScheduledTask> tasks = new TaskList(1 << 8);
+    private final List<AbstractScheduledTask> tasks = new TaskList(1 << 8);
     public final SearchBitSet acquiredIdBitSet = new SearchBitSet(1 << 8);
 
     public TaskScheduler() {
@@ -35,7 +35,7 @@ public class TaskScheduler {
     }
 
     public void updateTasks() {
-        for (ScheduledTask task : tasks) {
+        for (AbstractScheduledTask task : tasks) {
             if (task == null) {
                 continue;
             }
@@ -71,7 +71,7 @@ public class TaskScheduler {
         return tasks.get(taskId) != null;
     }
 
-    public synchronized int addTask(ScheduledTask task) {
+    public synchronized int addTask(AbstractScheduledTask task) {
         int taskId = acquiredIdBitSet.firstClear();
         task.setId(taskId);
         tasks.add(task);
@@ -79,7 +79,7 @@ public class TaskScheduler {
         return taskId;
     }
 
-    public void removeTask(ScheduledTask task) {
+    public void removeTask(AbstractScheduledTask task) {
         removeTask(task.getId());
     }
 
@@ -121,33 +121,33 @@ public class TaskScheduler {
      * 12) contains вернет true, если индекс валиден, меньше size() и значение под
      * индексом не null
      */
-    private static final class TaskList extends AbstractList<ScheduledTask> {
+    private static final class TaskList extends AbstractList<AbstractScheduledTask> {
 
-        private ScheduledTask[] elements;
+        private AbstractScheduledTask[] elements;
         private int size;
 
         public TaskList(int initCapacity) {
-            elements = new ScheduledTask[initCapacity];
+            elements = new AbstractScheduledTask[initCapacity];
         }
 
         @Override
-        public ScheduledTask get(int index) {
+        public AbstractScheduledTask get(int index) {
             return elements[index];
         }
 
         @Override
-        public boolean add(ScheduledTask scheduledTask) {
+        public boolean add(AbstractScheduledTask scheduledTask) {
             add(scheduledTask.getId(), scheduledTask);
             return true;
         }
 
         @Override
-        public void add(int index, ScheduledTask element) {
+        public void add(int index, AbstractScheduledTask element) {
             set(index, element);
         }
 
         @Override
-        public ScheduledTask set(int index, ScheduledTask element) {
+        public AbstractScheduledTask set(int index, AbstractScheduledTask element) {
             assertRange(index);
             if (index > size) {
                 size = index + 1;
@@ -155,27 +155,27 @@ public class TaskScheduler {
             if (size == elements.length) {
                 elements = grow();
             }
-            ScheduledTask prev = elements[index];
+            AbstractScheduledTask prev = elements[index];
             elements[index] = element;
             return prev;
         }
 
         @Override
-        public ScheduledTask remove(int index) {
-            ScheduledTask previous = elements[index];
+        public AbstractScheduledTask remove(int index) {
+            AbstractScheduledTask previous = elements[index];
             elements[index] = null;
             return previous;
         }
 
         @Override
         public boolean remove(Object o) {
-            remove(((ScheduledTask) o).getId());
+            remove(((AbstractScheduledTask) o).getId());
             return true;
         }
 
         @Override
         public int indexOf(Object o) {
-            ScheduledTask task = (ScheduledTask) o;
+            AbstractScheduledTask task = (AbstractScheduledTask) o;
             return task.getId();
         }
 
@@ -185,10 +185,10 @@ public class TaskScheduler {
         }
 
         @Override
-        public Iterator<ScheduledTask> iterator() {
+        public Iterator<AbstractScheduledTask> iterator() {
             return new Iterator<>() {
 
-                private final ScheduledTask[] snapshot = Arrays.copyOf(elements, size);
+                private final AbstractScheduledTask[] snapshot = Arrays.copyOf(elements, size);
                 private int current;
                 private int cursor;
 
@@ -198,7 +198,7 @@ public class TaskScheduler {
                 }
 
                 @Override
-                public ScheduledTask next() {
+                public AbstractScheduledTask next() {
                     return snapshot[current = cursor++];
                 }
 
@@ -209,7 +209,7 @@ public class TaskScheduler {
             };
         }
 
-        private ScheduledTask[] grow() {
+        private AbstractScheduledTask[] grow() {
             int oldCapacity = elements.length;
             //TODO не рассчитан на очень большие размеры и не имеет софткапа до максимального инта.
             // нужно поправить потом, мб

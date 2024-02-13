@@ -94,10 +94,13 @@ public class Main {
 
             TaskScheduler scheduler = TaskScheduler.getContext();
             final int taskId = scheduler.addRepeatableTask(60, 60, () -> {
-                Animation.animate(textElement, Easings.QUAD_OUT, 60,
+                int id = Animation.animate(textElement, Easings.QUAD_OUT, 60,
                         Animation.ChangeType.ADD, cp -> {
                             cp.getOffset().set(-50, -30);
                         });
+                scheduler.addTaskWithDelay(15, () -> {
+                    scheduler.removeTask(id);
+                });
             });
             scheduler.addTaskWithDelay(180, () -> {
                 scheduler.removeTask(taskId);
