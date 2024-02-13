@@ -34,7 +34,7 @@ public class ScheduledTask {
     }
 
     public void stop() {
-        needStop = true;
+        TaskScheduler.getContext().removeTask(this);
     }
 
     public int getId() {

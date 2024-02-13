@@ -99,8 +99,8 @@ public class Main {
                             cp.getOffset().set(-50, -30);
                         });
             });
-            scheduler.addTaskWithDelay(240, () -> {
-                scheduler.stopTask(taskId);
+            scheduler.addTaskWithDelay(180, () -> {
+                scheduler.removeTask(taskId);
             });
 
             processor.getEventBus().registerListener(new EventListener() {
