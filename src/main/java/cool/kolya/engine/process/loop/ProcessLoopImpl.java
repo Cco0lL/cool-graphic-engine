@@ -73,7 +73,14 @@ public class ProcessLoopImpl implements ProcessLoop {
         eventBus.dispatch(new RenderEvent());
         GLFW.glfwSwapBuffers(windowPointer);
 
-        //TODO configurable FPS
+        int frameTime = settings.getFrameTime();
+        if (frameTime == 0f) {
+            return;
+        }
+
+        final long endFrameTime = frameStartTime + frameTime;
+        //noinspection StatementWithEmptyBody
+        while (System.currentTimeMillis() < endFrameTime) ;
     }
 
     @Override

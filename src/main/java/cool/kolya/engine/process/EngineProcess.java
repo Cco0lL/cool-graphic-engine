@@ -30,8 +30,6 @@ public class EngineProcess {
             GLFW.glfwMakeContextCurrent(windowPtr);
             GL.createCapabilities();
 
-            GLFW.glfwSwapInterval(1); //FIXME force vsync
-
             ProcessManager.setActiveContextProcess(this);
             eventBus.dispatch(new ProcessStartEvent());
 

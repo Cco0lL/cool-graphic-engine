@@ -12,11 +12,12 @@ import java.nio.file.Path;
 public class ProcessSettings {
 
     private final long ptr;
-    //private float frameTime = 1000f / 60;
+    private int frameTime;
     private int tickTime = 1000 / 20;
 
     public ProcessSettings(long ptr) {
         this.ptr = ptr;
+        setFrameRate(60);
     }
 
     public synchronized void setShouldClose() {
@@ -27,19 +28,19 @@ public class ProcessSettings {
         return GLFW.glfwWindowShouldClose(ptr);
     }
 
-    /*public void setFrameRate(int frameRate) {
+    public void setFrameRate(int frameRate) {
         if (frameRate == 0) {
             frameTime = 0;
             GLFW.glfwSwapInterval(1);
         } else {
-            frameTime = 1000f / frameRate;
-            glfwSwapInterval(0);
+            frameTime = Math.round(1000f / frameRate);
+            GLFW.glfwSwapInterval(0);
         }
-    }*/
+    }
 
-//    public float getFrameTime() {
-//        return frameTime;
-//    }
+    public int getFrameTime() {
+        return frameTime;
+    }
 
     public void setTickRate(int tickRate) {
         tickTime = 1000 / tickRate;
