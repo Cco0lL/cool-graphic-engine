@@ -4,6 +4,7 @@ import cool.kolya.engine.Engine;
 import cool.kolya.engine.event.*;
 import cool.kolya.engine.callback.Callbacks;
 import cool.kolya.engine.callback.listener.WindowCallbackListener;
+import org.jctools.queues.MessagePassingQueue;
 import org.jctools.queues.SpscUnboundedArrayQueue;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -30,18 +31,15 @@ public class ContextInputEventsManager {
 
     /**
      * In public access for possibility to implement another process loop.
+     *
      * @return queue with polled input events of current context process for
      * further computation in its own scope
      */
     @ApiStatus.Internal
     public static Queue<Event> pollRoutedContextEvents() {
         Queue<Event> pollEventsQueue = new LinkedList<>();
-
-        Queue<Event> eventsQueue = EVENT_QUEUES_MAP.get(Engine.getContextProcess().getWindowPtr());
-        while (!eventsQueue.isEmpty()) {
-           pollEventsQueue.offer(eventsQueue.poll());
-        }
-
+        MessagePassingQueue<Event> eventsQueue = EVENT_QUEUES_MAP.get(Engine.getContextProcess().getWindowPtr());
+        eventsQueue.drain(pollEventsQueue::offer);
         return pollEventsQueue;
     }
 
@@ -58,7 +56,7 @@ public class ContextInputEventsManager {
                 .setCallbackHandler(Callbacks.FramebufferSize, ((ptr, width, height) ->
                         routeEventToContextQueue(ptr, new FrameBufferResizeEvent(width, height))))
                 .setCallbackHandler(Callbacks.WindowSize, ((ptr, width, height) ->
-                       routeEventToContextQueue(ptr, new WindowResizeEvent(width, height))))
+                        routeEventToContextQueue(ptr, new WindowResizeEvent(width, height))))
                 .setCallbackHandler(Callbacks.CursorPos, ((ptr, xpos, ypos) ->
                         routeEventToContextQueue(ptr, new CursorMoveEvent(xpos, ypos)))).
                 setCallbackHandler(Callbacks.Scroll, ((ptr, xoffset, yoffset) ->

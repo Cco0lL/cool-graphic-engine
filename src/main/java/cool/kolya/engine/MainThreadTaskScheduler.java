@@ -1,6 +1,7 @@
 package cool.kolya.engine;
 
 import cool.kolya.api.util.ThreadScopeUtil;
+import org.jctools.queues.MessagePassingQueue;
 import org.jctools.queues.MpscUnboundedArrayQueue;
 
 import java.util.concurrent.CompletableFuture;
@@ -8,7 +9,7 @@ import java.util.function.Supplier;
 
 public class MainThreadTaskScheduler {
 
-    private final MpscUnboundedArrayQueue<Runnable> taskQueue = new MpscUnboundedArrayQueue<>(32);
+    private final MessagePassingQueue<Runnable> taskQueue = new MpscUnboundedArrayQueue<>(32);
 
     public void addTask(Runnable task) {
         if (ThreadScopeUtil.isCurrentThreadMain()) {
@@ -36,11 +37,6 @@ public class MainThreadTaskScheduler {
     }
 
     void computeTasks() {
-        while (!taskQueue.isEmpty()) {
-            Runnable task = taskQueue.relaxedPoll();
-            if (task != null) {
-                task.run();
-            }
-        }
+        taskQueue.drain(Runnable::run);
     }
 }
